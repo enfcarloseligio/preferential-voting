@@ -1,0 +1,63 @@
+id,CVE_ENT,CVE_MUN,municipio,población,enfermeras_total,tasa_total,enfermeras_primer,tasa_primer,enfermeras_segundo,tasa_segundo,enfermeras_tercer,tasa_tercer,enfermeras_apoyo,tasa_apoyo,enfermeras_escuelas,tasa_escuelas,enfermeras_no_aplica,tasa_no_aplica,enfermeras_no_asignado,tasa_no_asignado
+1,29,001,Amaxac de Guerrero,11403,7,0.613873542
+2,29,002,Apetatitlán de Antonio Carvajal,16003,779,48.67837281
+3,29,003,Atlangatepec,7087,12,1.693241146
+4,29,004,Atltzayanca,18111,24,1.325161504
+5,29,005,Apizaco,80725,345,4.273768969
+6,29,006,Calpulalpan,51172,157,3.068084108
+7,29,007,El Carmen Tequexquitla,17332,53,3.057927533
+8,29,008,Cuapiaxtla,16222,16,0.986314881
+9,29,009,Cuaxomulco,5928,9,1.518218623
+10,29,010,Chiautempan,73215,70,0.956088233
+11,29,011,Muñoz de Domingo Arenas,4755,4,0.841219769
+12,29,012,Españita,9416,17,1.805437553
+13,29,013,Huamantla,98764,256,2.592037585
+14,29,014,Hueyotlipan,15190,22,1.448321264
+15,29,015,Ixtacuixtla de Mariano Matamoros,38970,37,0.949448294
+16,29,016,Ixtenco,7504,6,0.799573561
+17,29,017,Mazatecochco de José María Morelos,11592,7,0.603864734
+18,29,018,Contla de Juan Cuamatzi,38579,74,1.918141994
+19,29,019,Tepetitla de Lardizábal,22274,13,0.583640119
+20,29,020,Sanctórum de Lázaro Cárdenas,9432,7,0.742154368
+21,29,021,Nanacamilpa de Mariano Arista,18686,13,0.695708017
+22,29,022,Acuamanala de Miguel Hidalgo,6432,2,0.310945274
+23,29,023,Natívitas,26309,109,4.143068912
+24,29,024,Panotla,28357,25,0.881616532
+25,29,025,San Pablo del Monte,82688,162,1.959171827
+26,29,026,Santa Cruz Tlaxcala,24116,28,1.161054901
+27,29,027,Tenancingo,12974,8,0.616617851
+28,29,028,Teolocholco,25257,19,0.752266698
+29,29,029,Tepeyanco,13328,11,0.825330132
+30,29,030,Terrenate,15475,17,1.098546042
+31,29,031,Tetla de la Solidaridad,35284,23,0.651853531
+32,29,032,Tetlatlahuca,13561,7,0.516186122
+33,29,033,Tlaxcala,99896,839,8.398734684
+34,29,034,Tlaxco,45438,112,2.464897223
+35,29,035,Tocatlán,6294,6,0.953288847
+36,29,036,Totolac,22529,7,0.31071064
+37,29,037,Zitlaltépec de Trinidad Sánchez Santos,9207,10,1.086130118
+38,29,038,Tzompantepec,18006,322,17.88292791
+39,29,039,Xaloztoc,25607,22,0.859140079
+40,29,040,Xaltocan,10601,16,1.509291576
+41,29,041,Papalotla de Xicohténcatl,33499,24,0.716439297
+42,29,042,Xicohtzinco,14197,12,0.845248996
+43,29,043,Yauhquemehcan,42242,15,0.355096823
+44,29,044,Zacatelco,45717,148,3.237307785
+45,29,045,Benito Juárez,6211,0,0
+46,29,046,Emiliano Zapata,4951,7,1.413855787
+47,29,047,Lázaro Cárdenas,3534,4,1.131861913
+48,29,048,La Magdalena Tlaltelulco,19036,5,0.262660223
+49,29,049,San Damián Texoloc,5884,4,0.679809653
+50,29,050,San Francisco Tetlanohcan,11761,4,0.340107134
+51,29,051,San Jerónimo Zacualpan,4092,2,0.488758553
+52,29,052,San José Teacalco,6436,5,0.77688005
+53,29,053,San Juan Huactzinco,7688,2,0.260145682
+54,29,054,San Lorenzo Axocomanitla,5689,2,0.351555634
+55,29,055,San Lucas Tecopilco,3077,4,1.299967501
+56,29,056,Santa Ana Nopalucan,7952,3,0.377263581
+57,29,057,Santa Apolonia Teacalco,4636,2,0.431406385
+58,29,058,Santa Catarina Ayometla,9463,4,0.422698933
+59,29,059,Santa Cruz Quilehtla,7750,7,0.903225806
+60,29,060,Santa Isabel Xiloxoxtla,5443,7,1.286055484
+8888,8888,8888,No Disponible,0,41,0
+9999,9999,9999,Total Tlaxcala,1342977,3975,2.959842201

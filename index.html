@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Metadatos -->
+  <meta name="description" content="SIARHE | Sistema de Información Administrativa de Recursos Humanos en Enfermería" />
+  <meta name="author" content="Secretaría de Salud - Dirección General de Calidad y Educación en Salud" />
+  <meta name="keywords" content="enfermería, salud, SIARHE, enfermeras, México, distribución" />
+  <title>SIARHE | Sistema de Información Administrativa de Recursos Humanos en Enfermería</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles/index.css" />
+
+  <!-- Librerías externas -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- Scripts internos -->
+  <script src="code.js" defer></script>
+  <script src="scripts/inyectar-layout.js"></script>
+  <script src="scripts/utils/window.indicadoresSIARHE.js" defer></script>
+</head>
+
+<body>
+  <main class="contenido-principal">
+
+    <!-- SECCIÓN DE BIENVENIDA -->
+    <section class="bienvenida">
+      <h1>Sistema de Información Administrativa de Recursos Humanos en Enfermería (SIARHE)</h1>
+      <p>
+        La Dirección de Enfermería y la Comisión Permanente de Enfermería le damos la más cordial bienvenida a este espacio diseñado para brindar información precisa, actualizada y sistematizada sobre los recursos humanos en enfermería en México. Este sitio constituye una herramienta clave para directivos, responsables de políticas públicas, investigadores y líderes del sector salud que requieren consultar datos estratégicos sobre la fuerza laboral en enfermería, su distribución, formación y desempeño institucional.
+      </p>
+      <p>
+        A través del SIARHE, se busca fortalecer la toma de decisiones basada en evidencia, promover la planeación efectiva del recurso humano en salud y contribuir al desarrollo de políticas que respondan a las necesidades del sistema nacional de salud.
+      </p>
+
+      <h2>¿Qué es el SIARHE?</h2>
+      <p class="SIARHE">
+        El Sistema de Información Administrativa de Recursos Humanos en Enfermería (SIARHE) es una plataforma oficial de la Secretaría de Salud que integra, organiza y actualiza de forma continua los datos nominales del personal de enfermería en México que labora en instituciones públicas del Sistema Nacional de Salud.
+        <br><br>
+        Su objetivo principal es ofrecer información confiable y desagregada sobre el perfil demográfico, académico, laboral e institucional del recurso humano en enfermería, a fin de apoyar los procesos de planeación, gestión, evaluación y formulación de políticas públicas basadas en evidencia.
+        <br><br>
+        El SIARHE permite consultar estadísticas por entidad federativa, tipo de institución, categoría profesional, nivel de atención, condiciones laborales, entre otros indicadores estratégicos que reflejan la situación actual y las tendencias del personal de enfermería en el país.
+      </p>
+    </section>
+
+    <!-- SECCIÓN DE INDICADORES CLAVE -->
+    <section class="indicadores-clave">
+      <h2 class="titulo-seccion">Indicadores clave</h2>
+      <div class="indicadores-grid">
+        <div class="indicador">
+          <strong><span data-indicador="enfermeras"></span></strong>
+          <p>Enfermeras registradas</p>
+        </div>
+        <div class="indicador">
+          <strong><span data-indicador="tasa"></span></strong>
+          <p>Tasa nacional<br>por cada mil habitantes</p>
+        </div>
+        <div class="indicador">
+          <strong><span data-indicador="edad"></span></strong>
+          <p>Promedio de edad (años)</p>
+        </div>
+        <div class="indicador">
+          <strong><span data-indicador="profesional"></span></strong>
+          <p>Con nivel profesional</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE ACCESOS DESTACADOS -->
+    <section class="accesos-destacados">
+      <h2 class="titulo-seccion">Accesos destacados</h2>
+      <div class="accesos-grid">
+        <a class="acceso-card" href="pages/acceso.html">
+          <strong>🔐</strong>
+          <p>Iniciar Sesión</p>
+        </a>
+        <a class="acceso-card" href="entidades/republica-mexicana.html">
+          <strong>🗺️</strong>
+          <p>Mapa Nacional</p>
+        </a>
+        <a class="acceso-card" href="#">
+          <strong>📊</strong>
+          <p>Estadísticas</p>
+        </a>
+        <a class="acceso-card" href="pages/normas/normatividad.html">
+          <strong>📚</strong>
+          <p>Normatividad</p>
+        </a>
+        
+      </div>
+    </section>
+    <br>
+  </main>
+</body>
+</html>

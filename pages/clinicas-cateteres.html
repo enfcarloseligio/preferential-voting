@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mapa nacional de tasas de enfermeras con localización de clínicas de catéter en México 2025." />
+  <meta name="author" content="Secretaría de Salud - DGCES - Dirección de Enfermería" />
+  <meta name="keywords" content="enfermería, SIARHE, clínicas de catéter, México, mapa, 2025" />
+  <title>SIARHE | Clínicas de Catéter y Tasas de Enfermeras</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../styles/mapas.css" />
+
+  <!-- Librerías necesarias -->
+  <script src="https://d3js.org/d3.v7.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+
+  <!-- Layout general -->
+  <script src="../scripts/inyectar-layout.js" defer></script>
+
+  <!-- Lógica del mapa de clínicas -->
+  <script type="module" src="../scripts/maps/clinicas-cateteres.js"></script>
+</head>
+
+<body>
+  <main>
+    <!-- Migas de pan -->
+    <nav aria-label="breadcrumb" class="migas">
+      <a href="../index.html">Inicio</a> &gt;
+      <span>Clínicas de catéter</span>
+    </nav>
+
+    <!-- SECCIÓN DEL MAPA DE CLÍNICAS -->
+    <section class="mapa-entidad">
+      <h1>Clínicas de Catéter y Tasas de Enfermeras por Estado (2025)</h1>
+
+      <p class="bienvenida">
+        Explore la localización de clínicas de catéter superpuesta sobre el mapa coroplético de tasas de enfermeras por entidad federativa.
+      </p>
+
+      <!-- ==============================
+           CONTROL DE MÉTRICA (componente reutilizable)
+           ============================== -->
+      <div id="control-indicador"></div>
+      <script type="module">
+        import { renderIndicadorControl } from "../scripts/componentes/indicador-control.js";
+        renderIndicadorControl("#control-indicador", { defaultValue: "tasa_total" });
+        // El mapa escucha #sel-metrica, no necesitas nada más aquí
+      </script>
+
+      <!-- CONTENEDOR DEL MAPA (los botones se inyectan por JS) -->
+      <div id="mapa-clinicas" class="mapa-wrapper"></div>
+
+      <!-- NOTA METODOLÓGICA -->
+      <p id="nota">
+        <em>
+          Nota: El mapa coroplético usa la misma metodología de tasas que la visualización nacional (cuartiles dinámicos por métrica).
+          Las clínicas se muestran como puntos y su tooltip incluye CLUES, institución y ubicación. Datos consultados el
+          <span id="fecha-consulta"></span>.
+        </em>
+      </p>
+
+      <script>
+        // Fecha dinámica en la nota
+        document.getElementById("fecha-consulta").textContent = new Date().toISOString().split("T")[0];
+      </script>
+
+      <!-- BOTONES DE DESCARGA DEL MAPA -->
+      <div class="descarga-container">
+        <button id="descargar-sin-etiquetas" class="boton">🗺️ Descargar 🗺️</button>
+        <button id="descargar-con-etiquetas" class="boton">📝 Descargar 📝</button>
+      </div>
+    </section>
+
+    <!-- (Opcional) SECCIÓN DE TABLA RESUMEN -->
+    <section class="tabla-republica" style="display:none;">
+      <h2>Resumen por entidad</h2>
+      <p>
+        (Opcional) Si decides agregar una tabla de resumen, puedes reutilizar el mismo componente que en la página nacional.
+      </p>
+      <div class="tabla-scroll">
+        <div id="tabla-contenido"></div>
+      </div>
+      <div class="descarga-container">
+        <button id="descargar-excel" class="boton">📥 Descargar Excel</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

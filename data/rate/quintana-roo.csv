@@ -1,0 +1,14 @@
+id,CVE_ENT,CVE_MUN,municipio,población,enfermeras_total,tasa_total,enfermeras_primer,tasa_primer,enfermeras_segundo,tasa_segundo,enfermeras_tercer,tasa_tercer,enfermeras_apoyo,tasa_apoyo,enfermeras_escuelas,tasa_escuelas,enfermeras_no_aplica,tasa_no_aplica,enfermeras_no_asignado,tasa_no_asignado
+1,23,001,Cozumel,88626,203,2.290524225
+2,23,002,Felipe Carrillo Puerto,83990,197,2.345517323
+3,23,003,Isla Mujeres,19203,37,1.926782274
+4,23,004,Othón P. Blanco,244553,1170,4.784238999
+5,23,005,Benito Juárez,911503,1786,1.959401121
+6,23,006,José María Morelos,36179,96,2.653473009
+7,23,007,Lázaro Cárdenas,25333,85,3.355307307
+8,23,008,Playa del Carmen,333800,628,1.881366087
+9,23,009,Tulum,46721,23,0.492283984
+10,23,010,Bacalar,53429,105,1.965224878
+11,23,011,Puerto Morelos,26921,20,0.742914453
+8888,8888,8888,No Disponible,0,68,0
+9999,9999,9999,Total Quintana Roo,1870258,4418,2.362240931

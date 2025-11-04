@@ -1,0 +1,21 @@
+id,CVE_ENT,CVE_MUN,municipio,población,enfermeras_total,tasa_total,enfermeras_primer,tasa_primer,enfermeras_segundo,tasa_segundo,enfermeras_tercer,tasa_tercer,enfermeras_apoyo,tasa_apoyo,enfermeras_escuelas,tasa_escuelas,enfermeras_no_aplica,tasa_no_aplica,enfermeras_no_asignado,tasa_no_asignado
+1,22,001,Amealco de Bonfil,66841,64,0.957496148
+2,22,002,Pinal de Amoles,27365,27,0.986661794
+3,22,003,Arroyo Seco,13142,18,1.369654543
+4,22,004,Cadereyta de Montes,69075,237,3.431053203
+5,22,005,Colón,67121,24,0.357563207
+6,22,006,Corregidora,212567,68,0.319899138
+7,22,007,Ezequiel Montes,45141,27,0.598125872
+8,22,008,Huimilpan,36608,33,0.901442308
+9,22,009,Jalpan de Serra,27343,135,4.93727828
+10,22,010,Landa de Matamoros,18794,21,1.117377887
+11,22,011,El Marqués,231668,897,3.871920162
+12,22,012,Pedro Escobedo,77404,51,0.658880678
+13,22,013,Peñamiller,19141,29,1.515072358
+14,22,014,Querétaro,1049777,3139,2.990158862
+15,22,015,San Joaquín,8359,13,1.555209953
+16,22,016,San Juan del Río,297804,700,2.350539281
+17,22,017,Tequisquiapan,72201,36,0.498608053
+18,22,018,Tolimán,27916,31,1.11047428
+8888,8888,8888,No Disponible,0,12,0
+9999,9999,9999,Total Querétaro,2368267,5562,2.34855276

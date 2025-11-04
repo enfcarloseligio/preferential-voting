@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>SIARHE | Distribución de Profesionales de Enfermería en México</title>
+  <meta name="description" content="Mapa y tabla interactiva de la distribución de profesionales de enfermería en México: totales nacionales, entidades federativas y tasas por nivel en el año actual." />
+  <meta name="keywords" content="enfermería, salud, SIARHE, enfermeras, México, distribución, mapa, 2025" />
+  <meta name="author" content="Secretaría de Salud - Dirección General de Calidad y Educación en Salud - Dirección de Enfermería" />
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../styles/mapas.css" />
+
+  <!-- Librerías externas -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <!-- Layout general y script del mapa nacional -->
+  <script src="../scripts/inyectar-layout.js"></script>
+  <script type="module" src="../scripts/maps/republica-mexicana.js"></script>
+</head>
+
+<body>
+  <main>
+
+    <!-- Migas de pan -->
+    <nav aria-label="breadcrumb" class="migas">
+      <a href="../index.html">Inicio</a> &gt;
+      <span>República Mexicana</span>
+    </nav>
+
+    <!-- SECCIÓN PRINCIPAL DEL MAPA NACIONAL -->
+    <section class="mapa-entidad">
+      <h1>¿Cuántas enfermeras hay en México en <span class="year"></span>?</h1>
+      <p class="bienvenida">
+        En el año <span class="year"></span>, México cuenta con un total de
+        <strong><span id="total-enfermeras-nac">—</span> enfermeras</strong>
+        distribuidas en <strong><span id="total-entidades">—</span> entidades federativas</strong>,
+        de acuerdo con datos oficiales del Sistema de Información Administrativa de Recursos Humanos en Enfermería (SIARHE).
+      </p>
+
+      <h2>Distribución de enfermeras por entidad federativa en <span class="year"></span></h2>
+      <p>
+        Utiliza los botones de zoom (+/–) para acercar o alejar el mapa. Al colocar el cursor sobre una entidad federativa,
+        podrás ver el valor del indicador seleccionado. Activa los <em>marcadores</em> para visualizar clínicas u otros puntos
+        de interés; sus tooltips muestran la misma vista estandarizada que en el mapa de Clínicas de Catéteres.
+      </p>
+      <!-- Barra de controles -->
+      <div id="barra-controles" class="controles-grid">
+        <!-- Indicador: tu componente lo INYECTA aquí y crea el <select id="sel-metrica"> -->
+        <div id="indicador-control"></div>
+
+        <!-- Selector de marcadores (lo llena el JS con renderMarcadoresControl) -->
+        <div id="control-marcadores"></div>
+      </div>
+      <!-- Contenedor del mapa -->
+      <div id="mapa-nacional" class="mapa-wrapper">
+        <!-- Aquí se inyecta el SVG dinámicamente -->
+        <div class="zoom-controles"></div>
+      </div>
+
+      <!-- Nota y fuente -->
+      <p id="nota">
+        <strong>Nota:</strong>
+        Las tasas se calculan con base en el Censo de Población y Vivienda 2020 (INEGI)
+        y en los registros del Sistema de Información Administrativa de Recursos Humanos en Enfermería (SIARHE),
+        con corte estadístico al 23 de abril de 2025. Los intervalos de color se establecen
+        con base en el valor mínimo, los cuartiles (Q1, Q2 o mediana y Q3) y el valor máximo de la distribución.
+        <br />
+        <strong>Fuente:</strong>
+        Dirección de Enfermería & Dirección General de Calidad y Educación en Salud. (abril, 2025).
+        Sistema de Información Administrativa de Recursos Humanos en Enfermería (SIARHE) [Sistema Informático]. Secretaría de Salud.
+      </p>
+
+      <!-- Botones de descarga del mapa -->
+      <div class="descarga-container">
+        <button id="descargar-sin-etiquetas" class="boton">🗺️ Descargar 🗺️</button>
+        <button id="descargar-con-etiquetas" class="boton">📝 Descargar 📝</button>
+      </div>
+    </section>
+
+    <!-- SECCIÓN DE TABLA DINÁMICA NACIONAL -->
+    <section class="tabla-nacional">
+      <h2>Tasa de enfermeras por entidad federativa <span class="year"></span></h2>
+      <p>
+        La tabla se actualiza según el indicador seleccionado (por ejemplo, Tasa total, 1er nivel, 2º nivel, etc.).
+        Al elegir <strong>Población</strong>, se muestra solo la población y las columnas de enfermeras/tasa se indican con <strong>–</strong>.
+      </p>
+
+      <div class="tabla-scroll">
+        <div id="tabla-contenido">
+          <!-- La tabla se inyecta dinámicamente desde JS -->
+        </div>
+      </div>
+
+      <div class="descarga-container">
+        <button id="descargar-excel" class="boton">📥 Descargar Excel</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Script pequeño para inyectar el año en .year ASAP -->
+  <script>
+    (function () {
+      var y = new Date().getFullYear();
+      document.querySelectorAll('.year').forEach(function (el) { el.textContent = y; });
+    })();
+  </script>
+
+  <!-- 🔧 INVOCACIÓN DEL CONTROL DE INDICADOR -->
+  <script type="module">
+    // Asegúrate de que esta ruta apunte a tu componente real:
+    // (usa la misma que tengas en otras páginas donde sí aparece el indicador)
+    import { renderIndicadorControl } from "../scripts/componentes/indicador-control.js";
+
+    // Renderiza el selector dentro de #indicador-control
+    // El componente debe crear internamente <select id="sel-metrica"> con tus opciones estándar.
+    renderIndicadorControl("#indicador-control");
+  </script>
+</body>
+</html>
