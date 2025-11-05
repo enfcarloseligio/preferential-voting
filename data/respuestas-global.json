@@ -1,1 +1,13 @@
-[]
+[
+    {
+        "nombre": "Carlos Eligio",
+        "prioridades": [
+            "Respuesta 1",
+            "Respuesta 3",
+            "Respuesta 2",
+            "Respuesta 4",
+            "Respuesta 5"
+        ],
+        "ts": "2025-11-05T23:10:21+00:00"
+    }
+]
