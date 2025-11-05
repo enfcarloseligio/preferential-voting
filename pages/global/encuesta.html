@@ -5,40 +5,46 @@
   <meta charset="UTF-8" />
   <title>Votación – Global</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- estilos institucionales -->
   <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../styles/encuesta-global.css" />
+  <!-- estilos específicos para la encuesta (opcional, puedes crear luego styles/encuesta-global.css) -->
 </head>
+
 <body>
   <main>
     <section>
       <h1>Votación del consenso</h1>
       <p class="texto-nota">Selecciona y ordena las opciones de acuerdo con tu prioridad.</p>
 
-      <!-- Contenedor de opciones (los chips 1-10) -->
+      <!-- ========================================
+           Contenedor de opciones (botones dinámicos)
+           ======================================== -->
       <div class="pv-opciones-wrapper">
         <h2 class="sr-only">Opciones disponibles</h2>
         <div class="pv-opciones-lista" id="pv-opciones-lista">
-          <!-- Aquí luego el JS puede inyectar las 10 opciones -->
-          <button type="button" class="button pv-chip-opcion">1 Opción</button>
-          <button type="button" class="button pv-chip-opcion">2 Opción</button>
-          <button type="button" class="button pv-chip-opcion">3 Opción</button>
-          <button type="button" class="button pv-chip-opcion">4 Opción</button>
-          <button type="button" class="button pv-chip-opcion">5 Opción</button>
-          <button type="button" class="button pv-chip-opcion">6 Opción</button>
-          <button type="button" class="button pv-chip-opcion">7 Opción</button>
-          <button type="button" class="button pv-chip-opcion">8 Opción</button>
-          <button type="button" class="button pv-chip-opcion">9 Opción</button>
-          <button type="button" class="button pv-chip-opcion">10 Opción</button>
+          <!-- El JS inyectará aquí las opciones que defina el facilitador -->
         </div>
       </div>
 
-      <!-- Área de captura del participante -->
+      <!-- ========================================
+           Área de captura del participante
+           ======================================== -->
       <div class="pv-form-votante">
         <label for="pv-nombre" class="sr-only">Nombre del participante</label>
-        <input id="pv-nombre" name="pv-nombre" type="text" placeholder="Nombre del participante" />
+        <input
+          id="pv-nombre"
+          name="pv-nombre"
+          type="text"
+          placeholder="Nombre del participante"
+        />
         <button type="button" class="button" id="pv-guardar-voto">Guardar</button>
       </div>
 
-      <!-- Contenedor de priorización (posiciones 1 a 5) -->
+      <!-- ========================================
+           Contenedor de priorización (posiciones)
+           ======================================== -->
       <div class="pv-priorizacion">
         <div class="pv-posicion">
           <label>Posición 1</label>
@@ -66,6 +72,10 @@
     </section>
   </main>
 
+  <!-- ========================================
+       Scripts locales del proyecto
+       ======================================== -->
   <script src="../../scripts/inyectar-layout.js" defer></script>
+  <script src="../../scripts/encuesta-global.js" defer></script>
 </body>
 </html>
