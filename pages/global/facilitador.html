@@ -72,9 +72,11 @@
   <!-- scripts locales del proyecto -->
   <script src="../../scripts/inyectar-layout.js" defer></script>
   <script src="../../scripts/utils/auth.js" defer></script>
-  <script src="../../scripts/facilitador-global.js" defer></script>
 
-  <!-- script externo (d3) -->
+  <!-- script externo (d3) debe ir antes que el que lo usa -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
+
+  <!-- script local que sí usa d3 -->
+  <script src="../../scripts/facilitador-global.js"></script>
 </body>
 </html>

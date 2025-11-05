@@ -40,6 +40,11 @@ No existe ninguna subcarpeta
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
 D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\DATA
+    guardar-opciones.php
+    guardar-respuesta.php
+    opciones-global.json
+    respuestas-global.json
+    
 No existe ninguna subcarpeta 
 
 
@@ -95,6 +100,8 @@ D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\PAGES
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
 D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\SCRIPTS
+¦   encuesta-global.js
+¦   facilitador-global.js
 ¦   inyectar-layout.js
 ¦   
 +---componentes
@@ -108,6 +115,8 @@ D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\SCRIPTS
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
 D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\STYLES
+    encuesta-global.css
+    facilitador-global.css
     index.css
     
 No existe ninguna subcarpeta 
