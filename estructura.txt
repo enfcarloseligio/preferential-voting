@@ -10,124 +10,25 @@ README_COLABORADORES.md
 styles.css
 
 ================================
- .git.backup
+ .vscode
 ================================
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\D3_JS_MX_RHE2025\.GIT.BACKUP
-¦   COMMIT_EDITMSG
-¦   config
-¦   description
-¦   FETCH_HEAD
-¦   HEAD
-¦   index
-¦   ORIG_HEAD
-¦   packed-refs
-¦   
-+---hooks
-¦       applypatch-msg.sample
-¦       commit-msg.sample
-¦       fsmonitor-watchman.sample
-¦       post-update.sample
-¦       pre-applypatch.sample
-¦       pre-commit.sample
-¦       pre-merge-commit.sample
-¦       pre-push.sample
-¦       pre-rebase.sample
-¦       pre-receive.sample
-¦       prepare-commit-msg.sample
-¦       push-to-checkout.sample
-¦       sendemail-validate.sample
-¦       update.sample
-¦       
-+---info
-¦       exclude
-¦       refs
-¦       
-+---logs
-¦   ¦   HEAD
-¦   ¦   
-¦   +---refs
-¦       +---heads
-¦       ¦       main
-¦       ¦       
-¦       +---remotes
-¦           +---origin
-¦                   HEAD
-¦                   main
-¦                   SQuetzalliAC
-¦                   
-+---objects
-¦   +---11
-¦   ¦       d461a33b28d10a9f87fb7101683ed07ecb7097
-¦   ¦       
-¦   +---5f
-¦   ¦       4dd62d5a1eb6baf19a191c132163160cab6019
-¦   ¦       
-¦   +---6c
-¦   ¦       39c4fb7a0c2e22a82896cbefa9d24319148ef1
-¦   ¦       
-¦   +---7e
-¦   ¦       66c17cb9f49bd5f7fbcb65326f251ca04ecb4a
-¦   ¦       
-¦   +---83
-¦   ¦       08599d1880a8befeba0a7836a0f14aac7644a2
-¦   ¦       
-¦   +---96
-¦   ¦       b46ddcc1165a69cb26fbed750d3fdcf0c23021
-¦   ¦       
-¦   +---b6
-¦   ¦       d35cbdcf2ffee0ba7d86edfadbfd4b9d981409
-¦   ¦       
-¦   +---bd
-¦   ¦       2f7ec44c9ea3b79afc6afae81ad9f57ffdda27
-¦   ¦       
-¦   +---ce
-¦   ¦       e7cf55292ba8d94ad5a758c00bee57b0c8bcdc
-¦   ¦       
-¦   +---d5
-¦   ¦       3d2cb6f3d2e9a42e3871fea3167b95b9808822
-¦   ¦       
-¦   +---ec
-¦   ¦       073d2b1a9e27dda931129beb75a77ac50b2e41
-¦   ¦       
-¦   +---info
-¦   ¦       commit-graph
-¦   ¦       packs
-¦   ¦       
-¦   +---pack
-¦           pack-06e68121b643201e7cc0b82bb6945d085eb9efc2.idx
-¦           pack-06e68121b643201e7cc0b82bb6945d085eb9efc2.pack
-¦           pack-06e68121b643201e7cc0b82bb6945d085eb9efc2.rev
-¦           pack-42180fbb9f52469a71a840ec7f8f5ba6d3ec167d.idx
-¦           pack-42180fbb9f52469a71a840ec7f8f5ba6d3ec167d.pack
-¦           pack-42180fbb9f52469a71a840ec7f8f5ba6d3ec167d.rev
-¦           pack-95dd102e2e700ca648038ccbf984047b444bd1da.idx
-¦           pack-95dd102e2e700ca648038ccbf984047b444bd1da.pack
-¦           pack-95dd102e2e700ca648038ccbf984047b444bd1da.rev
-¦           pack-da00a493658a60735d343fee0082379b8bbb2bf3.idx
-¦           pack-da00a493658a60735d343fee0082379b8bbb2bf3.pack
-¦           pack-da00a493658a60735d343fee0082379b8bbb2bf3.rev
-¦           
-+---refs
-    +---heads
-    ¦       main
-    ¦       
-    +---remotes
-        +---origin
-                HEAD
-                
+D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\.VSCODE
+    settings.json
+    
+No existe ninguna subcarpeta 
+
 
 ================================
  componentes
 ================================
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\D3_JS_MX_RHE2025\COMPONENTES
+D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\COMPONENTES
     banner.html
     footer.html
     header.html
-    layout-entidades.html
     layout-simple.html
     
 No existe ninguna subcarpeta 
@@ -138,125 +39,7 @@ No existe ninguna subcarpeta
 ================================
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\D3_JS_MX_RHE2025\DATA
-+---clinicas
-¦       clinicas-cateteres.csv
-¦       clinicas-heridas.csv
-¦       
-+---indicators
-¦       indicadores-clave.csv
-¦       
-+---maps
-¦       aguascalientes.geojson
-¦       baja-california-sur.geojson
-¦       baja-california.geojson
-¦       campeche.geojson
-¦       chiapas.geojson
-¦       chihuahua.geojson
-¦       ciudad-de-mexico.geojson
-¦       coahuila.geojson
-¦       colima.geojson
-¦       durango.geojson
-¦       estado-de-mexico.geojson
-¦       guanajuato.geojson
-¦       guerrero.geojson
-¦       hidalgo.geojson
-¦       jalisco.geojson
-¦       michoacan.geojson
-¦       morelos.geojson
-¦       nayarit.geojson
-¦       nuevo-leon.geojson
-¦       oaxaca.geojson
-¦       puebla.geojson
-¦       queretaro.geojson
-¦       quintana-roo.geojson
-¦       republica-mexicana.geojson
-¦       san-luis-potosi.geojson
-¦       sinaloa.geojson
-¦       sonora.geojson
-¦       tabasco.geojson
-¦       tamaulipas.geojson
-¦       tlaxcala.geojson
-¦       veracruz.geojson
-¦       yucatan.geojson
-¦       zacatecas.geojson
-¦       
-+---rate
-        aguascalientes.csv
-        baja-california-sur.csv
-        baja-california.csv
-        campeche.csv
-        chiapas.csv
-        chihuahua.csv
-        ciudad-de-mexico.csv
-        coahuila.csv
-        colima.csv
-        durango.csv
-        estado-de-mexico.csv
-        guanajuato.csv
-        guerrero.csv
-        hidalgo.csv
-        jalisco.csv
-        michoacan.csv
-        morelos.csv
-        nayarit.csv
-        nuevo-leon.csv
-        oaxaca.csv
-        puebla.csv
-        queretaro.csv
-        quintana-roo.csv
-        republica-mexicana.csv
-        san-luis-potosi.csv
-        sinaloa.csv
-        sonora.csv
-        tabasco.csv
-        tamaulipas.csv
-        tlaxcala.csv
-        veracruz.csv
-        yucatan.csv
-        zacatecas.csv
-        
-
-================================
- entidades
-================================
-Listado de rutas de carpetas
-El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\D3_JS_MX_RHE2025\ENTIDADES
-    aguascalientes.html
-    baja-california-sur.html
-    baja-california.html
-    campeche.html
-    chiapas.html
-    chihuahua.html
-    ciudad-de-mexico.html
-    coahuila.html
-    Colima.html
-    durango.html
-    estado-de-mexico.html
-    guanajuato.html
-    guerrero.html
-    hidalgo.html
-    jalisco.html
-    michoacan.html
-    morelos.html
-    nayarit.html
-    nuevo-leon.html
-    oaxaca.html
-    puebla.html
-    queretaro.html
-    quintana-roo.html
-    republica-mexicana.html
-    san-luis-potosi.html
-    sinaloa.html
-    sonora.html
-    tabasco.html
-    tamaulipas.html
-    tlaxcala.html
-    veracruz.html
-    yucatan.html
-    zacatecas.html
-    
+D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\DATA
 No existe ninguna subcarpeta 
 
 
@@ -265,7 +48,7 @@ No existe ninguna subcarpeta
 ================================
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\D3_JS_MX_RHE2025\IMG
+D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\IMG
     texture-r-2.png
     texture-r-2.svg
     
@@ -277,105 +60,28 @@ No existe ninguna subcarpeta
 ================================
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\D3_JS_MX_RHE2025\PAGES
-¦   acceso.html
-¦   acerca-de.html
-¦   ayuda.html
-¦   clinicas-cateteres.html
-¦   contactanos.html
-¦   normas.html
-¦   publicaciones.html
-¦   
-+---acerca-de
-¦       antecedentes.html
-¦       atribuciones.html
-¦       directorio.html
-¦       mision.html
-¦       siarhe.html
-¦       vision.html
-¦       
-+---normas
-¦       normatividad.html
-¦       operacion.html
-¦       
-+---publicaciones
-        datos-abiertos.html
-        documentos.html
-        libros.html
-        
+D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\PAGES
+No existe ninguna subcarpeta 
+
 
 ================================
  scripts
 ================================
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\D3_JS_MX_RHE2025\SCRIPTS
+D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\SCRIPTS
 ¦   inyectar-layout.js
 ¦   
 +---componentes
-¦       indicador-control.js
-¦       marcadores-control.js
-¦       zoom-controles.js
-¦       
-+---maps
-¦       aguascalientes.js
-¦       baja-california-sur.js
-¦       baja-california.js
-¦       campeche.js
-¦       chiapas.js
-¦       chihuahua.js
-¦       ciudad-de-mexico.js
-¦       clinicas-cateteres.js
-¦       coahuila.js
-¦       colima.js
-¦       durango.js
-¦       estado-de-mexico.js
-¦       guanajuato.js
-¦       guerrero.js
-¦       hidalgo.js
-¦       jalisco.js
-¦       michoacan.js
-¦       morelos.js
-¦       nayarit.js
-¦       nuevo-leon.js
-¦       oaxaca.js
-¦       puebla.js
-¦       queretaro.js
-¦       quintana-roo.js
-¦       republica-mexicana.js
-¦       san-luis-potosi.js
-¦       sinaloa.js
-¦       sonora.js
-¦       tabasco.js
-¦       tamaulipas.js
-¦       tlaxcala.js
-¦       veracruz.js
-¦       yucatan.js
-¦       zacatecas.js
-¦       
 +---utils
-        cargar-indicadores.js
-        config-mapa.js
-        enlaces.js
-        marcadores.config.js
-        marcadores.js
-        metricas.js
-        normalizacion.js
-        tabla-municipios.js
-        tablas.js
-        tooltip.js
-        window.indicadoresSIARHE.js
-        
 
 ================================
  styles
 ================================
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\D3_JS_MX_RHE2025\STYLES
-    contactanos.css
+D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\STYLES
     index.css
-    mapas.css
     
 No existe ninguna subcarpeta 
 

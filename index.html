@@ -5,94 +5,139 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Metadatos -->
-  <meta name="description" content="SIARHE | Sistema de Información Administrativa de Recursos Humanos en Enfermería" />
+  <meta name="description" content="Diálogo Político para el Fortalecimiento del Personal de Enfermería en México" />
   <meta name="author" content="Secretaría de Salud - Dirección General de Calidad y Educación en Salud" />
-  <meta name="keywords" content="enfermería, salud, SIARHE, enfermeras, México, distribución" />
-  <title>SIARHE | Sistema de Información Administrativa de Recursos Humanos en Enfermería</title>
+  <meta name="keywords" content="enfermería, salud, diálogo político, OPS, OMS, DGCES, México" />
+  <title>Diálogo Político | Fortalecimiento del Personal de Enfermería</title>
 
   <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="styles/index.css" />
 
-  <!-- Librerías externas -->
-  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <!-- Librerías externas (si las necesitas después para dashboards/PDF) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <!-- Scripts internos -->
+  <!-- inyecta header/footer -->
+  <script src="scripts/inyectar-layout.js" defer></script>
+  <!-- auth para mostrar menú de facilitadores -->
+  <script src="scripts/utils/auth.js" defer></script>
+  <!-- si usas lógica general -->
   <script src="code.js" defer></script>
-  <script src="scripts/inyectar-layout.js"></script>
-  <script src="scripts/utils/window.indicadoresSIARHE.js" defer></script>
 </head>
 
 <body>
   <main class="contenido-principal">
 
-    <!-- SECCIÓN DE BIENVENIDA -->
+    <!-- SECCIÓN DE BIENVENIDA / CONTEXTO -->
     <section class="bienvenida">
-      <h1>Sistema de Información Administrativa de Recursos Humanos en Enfermería (SIARHE)</h1>
+      <h1>Diálogo Político para el Fortalecimiento del Personal de Enfermería en México</h1>
       <p>
-        La Dirección de Enfermería y la Comisión Permanente de Enfermería le damos la más cordial bienvenida a este espacio diseñado para brindar información precisa, actualizada y sistematizada sobre los recursos humanos en enfermería en México. Este sitio constituye una herramienta clave para directivos, responsables de políticas públicas, investigadores y líderes del sector salud que requieren consultar datos estratégicos sobre la fuerza laboral en enfermería, su distribución, formación y desempeño institucional.
+        Espacio digital de apoyo a la jornada de trabajo coordinada por la Dirección de Enfermería de la DGCES,
+        en colaboración con la OPS/OMS, para identificar y priorizar acciones estratégicas que fortalezcan la
+        fuerza laboral de enfermería en el país.
       </p>
       <p>
-        A través del SIARHE, se busca fortalecer la toma de decisiones basada en evidencia, promover la planeación efectiva del recurso humano en salud y contribuir al desarrollo de políticas que respondan a las necesidades del sistema nacional de salud.
+        Aquí podrás ingresar a la mesa temática que te corresponde, capturar las prioridades acordadas, consultar
+        los resultados por eje (educación, empleo, liderazgo y prestación de servicios) y, si cuentas con acceso
+        autorizado, administrar las opciones y capturas como facilitador.
       </p>
 
-      <h2>¿Qué es el SIARHE?</h2>
-      <p class="SIARHE">
-        El Sistema de Información Administrativa de Recursos Humanos en Enfermería (SIARHE) es una plataforma oficial de la Secretaría de Salud que integra, organiza y actualiza de forma continua los datos nominales del personal de enfermería en México que labora en instituciones públicas del Sistema Nacional de Salud.
-        <br><br>
-        Su objetivo principal es ofrecer información confiable y desagregada sobre el perfil demográfico, académico, laboral e institucional del recurso humano en enfermería, a fin de apoyar los procesos de planeación, gestión, evaluación y formulación de políticas públicas basadas en evidencia.
-        <br><br>
-        El SIARHE permite consultar estadísticas por entidad federativa, tipo de institución, categoría profesional, nivel de atención, condiciones laborales, entre otros indicadores estratégicos que reflejan la situación actual y las tendencias del personal de enfermería en el país.
+      <h2>Propósito del ejercicio</h2>
+      <p>
+        Promover un proceso de diálogo basado en evidencia —alineado con las orientaciones estratégicas mundiales sobre
+        enfermería y con la ruta nacional 2025–2030— para contar con insumos que orienten la toma de decisiones,
+        la formación, el empleo, el liderazgo y la prestación de servicios de enfermería en México.
       </p>
     </section>
 
-    <!-- SECCIÓN DE INDICADORES CLAVE -->
+    <!-- SECCIÓN DE DATOS DEL EVENTO -->
     <section class="indicadores-clave">
-      <h2 class="titulo-seccion">Indicadores clave</h2>
+      <h2 class="titulo-seccion">Información del encuentro</h2>
       <div class="indicadores-grid">
         <div class="indicador">
-          <strong><span data-indicador="enfermeras"></span></strong>
-          <p>Enfermeras registradas</p>
+          <strong>19–20 noviembre 2025</strong>
+          <p>Fechas de trabajo</p>
         </div>
         <div class="indicador">
-          <strong><span data-indicador="tasa"></span></strong>
-          <p>Tasa nacional<br>por cada mil habitantes</p>
+          <strong>Sala / modalidad híbrida</strong>
+          <p>Sede operativa</p>
         </div>
         <div class="indicador">
-          <strong><span data-indicador="edad"></span></strong>
-          <p>Promedio de edad (años)</p>
+          <strong>4 mesas temáticas</strong>
+          <p>Educación, Empleo, Liderazgo, Prestación de servicios</p>
         </div>
         <div class="indicador">
-          <strong><span data-indicador="profesional"></span></strong>
-          <p>Con nivel profesional</p>
+          <strong>1 consolidado nacional</strong>
+          <p>Resultados globales</p>
         </div>
       </div>
     </section>
 
-    <!-- SECCIÓN DE ACCESOS DESTACADOS -->
+    <!-- SECCIÓN DE ACCESOS DESTACADOS (tu “home” funcional) -->
     <section class="accesos-destacados">
       <h2 class="titulo-seccion">Accesos destacados</h2>
       <div class="accesos-grid">
-        <a class="acceso-card" href="pages/acceso.html">
-          <strong>🔐</strong>
-          <p>Iniciar Sesión</p>
+
+        <!-- Entrar a mi mesa -->
+        <a class="acceso-card" href="#" data-rel="#mesa-educacion">
+          <strong>📝</strong>
+          <p>Mesa 1. Educación</p>
         </a>
-        <a class="acceso-card" href="entidades/republica-mexicana.html">
-          <strong>🗺️</strong>
-          <p>Mapa Nacional</p>
+        <a class="acceso-card" href="#" data-rel="#mesa-empleos">
+          <strong>📝</strong>
+          <p>Mesa 2. Empleo</p>
         </a>
-        <a class="acceso-card" href="#">
+        <a class="acceso-card" href="#" data-rel="#mesa-liderazgo">
+          <strong>📝</strong>
+          <p>Mesa 3. Liderazgo</p>
+        </a>
+        <a class="acceso-card" href="#" data-rel="#mesa-servicios">
+          <strong>📝</strong>
+          <p>Mesa 4. Prestación de servicios</p>
+        </a>
+
+        <!-- Resultados -->
+        <a class="acceso-card" href="#" data-rel="#res-global">
           <strong>📊</strong>
-          <p>Estadísticas</p>
+          <p>Resultados globales</p>
         </a>
-        <a class="acceso-card" href="pages/normas/normatividad.html">
-          <strong>📚</strong>
-          <p>Normatividad</p>
+
+        <!-- Solo facilitadores (se muestra con auth.js) -->
+        <a class="acceso-card solo-autenticado" href="#" data-rel="#fac-global">
+          <strong>🛠️</strong>
+          <p>Panel de facilitadores</p>
         </a>
-        
       </div>
     </section>
+
+    <!-- (Opcional) SECCIÓN DE EXPLICACIÓN DE MESAS -->
+    <section class="accesos-destacados">
+      <h2 class="titulo-seccion">Mesas de trabajo</h2>
+      <p>
+        Cada mesa trabajará sobre brechas, desafíos y propuestas específicas. Las capturas que se hagan en este sistema
+        alimentarán el tablero principal para la plenaria.
+      </p>
+      <div class="accesos-grid">
+        <div class="acceso-card">
+          <strong>1</strong>
+          <p>Educación: formación, competencias y alineación al sistema de salud.</p>
+        </div>
+        <div class="acceso-card">
+          <strong>2</strong>
+          <p>Empleo: disponibilidad, retención y condiciones laborales.</p>
+        </div>
+        <div class="acceso-card">
+          <strong>3</strong>
+          <p>Liderazgo: gobernanza, investigación y toma de decisiones.</p>
+        </div>
+        <div class="acceso-card">
+          <strong>4</strong>
+          <p>Prestación de servicios: rol ampliado y calidad de la atención.</p>
+        </div>
+      </div>
+    </section>
+
     <br>
   </main>
 </body>
