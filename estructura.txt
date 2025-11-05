@@ -61,8 +61,33 @@ No existe ninguna subcarpeta
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
 D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\PAGES
-No existe ninguna subcarpeta 
-
+¦   Iniciar-sesion.html
+¦   
++---educacion
+¦       encuesta.html
+¦       facilitador.html
+¦       resultados.html
+¦       
++---empleos
+¦       encuesta.html
+¦       facilitador.html
+¦       resultados.html
+¦       
++---global
+¦       encuesta.html
+¦       facilitador.html
+¦       resultados.html
+¦       
++---liderazgo
+¦       encuesta.html
+¦       facilitador.html
+¦       resultados.html
+¦       
++---prestacion-servicios
+        encuesta.html
+        facilitador.html
+        resultados.html
+        
 
 ================================
  scripts
@@ -74,6 +99,8 @@ D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\SCRIPTS
 ¦   
 +---componentes
 +---utils
+        auth.js
+        
 
 ================================
  styles
