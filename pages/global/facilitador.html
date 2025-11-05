@@ -1,0 +1,80 @@
+<!-- pages/global/facilitador.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Facilitador – Global</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../styles/facilitador-global.css" />
+</head>
+<body>
+  <main>
+    <section class="solo-autenticado">
+      <h1>Configuración del ejercicio</h1>
+      <p class="texto-nota">Captura o edita las opciones que verán los participantes.</p>
+
+      <!-- Opciones editables -->
+      <div class="pv-editor-opciones">
+        <div class="pv-editor-lista" id="pv-editor-lista">
+          <label>Opción 1</label>
+          <input type="text" placeholder="Escribe la opción 1" />
+          <button type="button" class="button pv-agregar-opcion">+</button>
+          <!-- El JS puede clonar estos inputs -->
+        </div>
+
+        <div class="pv-editor-acciones">
+          <button type="button" class="button" id="pv-guardar-opciones">Guardar</button>
+          <button type="button" class="button" id="pv-limpiar-opciones">Limpiar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visualización de resultados (tabla) -->
+    <section class="solo-autenticado">
+      <h2>Resultados capturados</h2>
+      <div class="pv-busqueda">
+        <input type="search" placeholder="Buscar por nombre" id="pv-buscar" />
+        <button type="button" class="button" id="pv-limpiar-busqueda">Limpiar búsqueda</button>
+        <button type="button" class="button" id="pv-descargar-excel">Descargar Excel</button>
+      </div>
+
+      <div class="pv-tabla-resultados" id="pv-tabla-resultados">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>P1</th>
+              <th>P2</th>
+              <th>P3</th>
+              <th>P4</th>
+              <th>P5</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Aquí el JS va a ir metiendo los registros -->
+            <tr>
+              <td>Participante demo</td>
+              <td>Opción 3</td>
+              <td>Opción 1</td>
+              <td>Opción 5</td>
+              <td>Opción 2</td>
+              <td>Opción 4</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="texto-nota">Vista del facilitador</p>
+    </section>
+  </main>
+
+  <!-- scripts locales del proyecto -->
+  <script src="../../scripts/inyectar-layout.js" defer></script>
+  <script src="../../scripts/utils/auth.js" defer></script>
+  <script src="../../scripts/facilitador-global.js" defer></script>
+
+  <!-- script externo (d3) -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</body>
+</html>

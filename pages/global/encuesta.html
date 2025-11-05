@@ -1,0 +1,71 @@
+<!-- pages/global/encuesta.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Votación – Global</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+  <main>
+    <section>
+      <h1>Votación del consenso</h1>
+      <p class="texto-nota">Selecciona y ordena las opciones de acuerdo con tu prioridad.</p>
+
+      <!-- Contenedor de opciones (los chips 1-10) -->
+      <div class="pv-opciones-wrapper">
+        <h2 class="sr-only">Opciones disponibles</h2>
+        <div class="pv-opciones-lista" id="pv-opciones-lista">
+          <!-- Aquí luego el JS puede inyectar las 10 opciones -->
+          <button type="button" class="button pv-chip-opcion">1 Opción</button>
+          <button type="button" class="button pv-chip-opcion">2 Opción</button>
+          <button type="button" class="button pv-chip-opcion">3 Opción</button>
+          <button type="button" class="button pv-chip-opcion">4 Opción</button>
+          <button type="button" class="button pv-chip-opcion">5 Opción</button>
+          <button type="button" class="button pv-chip-opcion">6 Opción</button>
+          <button type="button" class="button pv-chip-opcion">7 Opción</button>
+          <button type="button" class="button pv-chip-opcion">8 Opción</button>
+          <button type="button" class="button pv-chip-opcion">9 Opción</button>
+          <button type="button" class="button pv-chip-opcion">10 Opción</button>
+        </div>
+      </div>
+
+      <!-- Área de captura del participante -->
+      <div class="pv-form-votante">
+        <label for="pv-nombre" class="sr-only">Nombre del participante</label>
+        <input id="pv-nombre" name="pv-nombre" type="text" placeholder="Nombre del participante" />
+        <button type="button" class="button" id="pv-guardar-voto">Guardar</button>
+      </div>
+
+      <!-- Contenedor de priorización (posiciones 1 a 5) -->
+      <div class="pv-priorizacion">
+        <div class="pv-posicion">
+          <label>Posición 1</label>
+          <div class="pv-slot" data-pos="1"></div>
+        </div>
+        <div class="pv-posicion">
+          <label>Posición 2</label>
+          <div class="pv-slot" data-pos="2"></div>
+        </div>
+        <div class="pv-posicion">
+          <label>Posición 3</label>
+          <div class="pv-slot" data-pos="3"></div>
+        </div>
+        <div class="pv-posicion">
+          <label>Posición 4</label>
+          <div class="pv-slot" data-pos="4"></div>
+        </div>
+        <div class="pv-posicion">
+          <label>Posición 5</label>
+          <div class="pv-slot" data-pos="5"></div>
+        </div>
+      </div>
+
+      <p class="texto-nota">Vista del usuario votante</p>
+    </section>
+  </main>
+
+  <script src="../../scripts/inyectar-layout.js" defer></script>
+</body>
+</html>

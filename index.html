@@ -14,15 +14,12 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="styles/index.css" />
 
-  <!-- Librerías externas (si las necesitas después para dashboards/PDF) -->
+  <!-- Librerías externas (para capturas/PDF si las usas después) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <!-- Scripts internos -->
-  <!-- inyecta header/footer -->
   <script src="scripts/inyectar-layout.js" defer></script>
-  <!-- auth para mostrar menú de facilitadores -->
   <script src="scripts/utils/auth.js" defer></script>
-  <!-- si usas lógica general -->
   <script src="code.js" defer></script>
 </head>
 
@@ -74,44 +71,39 @@
       </div>
     </section>
 
-    <!-- SECCIÓN DE ACCESOS DESTACADOS (tu “home” funcional) -->
+    <!-- SECCIÓN DE ACCESOS DESTACADOS -->
     <section class="accesos-destacados">
       <h2 class="titulo-seccion">Accesos destacados</h2>
       <div class="accesos-grid">
 
         <!-- Entrar a mi mesa -->
-        <a class="acceso-card" href="#" data-rel="#mesa-educacion">
+        <a class="acceso-card" href="pages/educacion/encuesta.html" data-rel="pages/educacion/encuesta.html">
           <strong>📝</strong>
           <p>Mesa 1. Educación</p>
         </a>
-        <a class="acceso-card" href="#" data-rel="#mesa-empleos">
+        <a class="acceso-card" href="pages/empleos/encuesta.html" data-rel="pages/empleos/encuesta.html">
           <strong>📝</strong>
           <p>Mesa 2. Empleo</p>
         </a>
-        <a class="acceso-card" href="#" data-rel="#mesa-liderazgo">
+        <a class="acceso-card" href="pages/liderazgo/encuesta.html" data-rel="pages/liderazgo/encuesta.html">
           <strong>📝</strong>
           <p>Mesa 3. Liderazgo</p>
         </a>
-        <a class="acceso-card" href="#" data-rel="#mesa-servicios">
+        <a class="acceso-card" href="pages/prestacion-servicios/encuesta.html" data-rel="pages/prestacion-servicios/encuesta.html">
           <strong>📝</strong>
           <p>Mesa 4. Prestación de servicios</p>
         </a>
 
         <!-- Resultados -->
-        <a class="acceso-card" href="#" data-rel="#res-global">
+        <a class="acceso-card" href="pages/global/resultados.html" data-rel="pages/global/resultados.html">
           <strong>📊</strong>
           <p>Resultados globales</p>
         </a>
 
-        <!-- Solo facilitadores (se muestra con auth.js) -->
-        <a class="acceso-card solo-autenticado" href="#" data-rel="#fac-global">
-          <strong>🛠️</strong>
-          <p>Panel de facilitadores</p>
-        </a>
       </div>
     </section>
 
-    <!-- (Opcional) SECCIÓN DE EXPLICACIÓN DE MESAS -->
+    <!-- SECCIÓN DE MESAS DE TRABAJO -->
     <section class="accesos-destacados">
       <h2 class="titulo-seccion">Mesas de trabajo</h2>
       <p>
@@ -138,7 +130,7 @@
       </div>
     </section>
 
-    <br>
+    <br />
   </main>
 </body>
 </html>
