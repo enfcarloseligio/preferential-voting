@@ -1,12 +1,21 @@
 // scripts/facilitador-global.js
 // ========================================
 // Lógica del Facilitador (captura de opciones y vista de resultados)
-// Para pages/global/facilitador.html
-// Usa localStorage como “data” local del navegador
+// Página objetivo: pages/global/facilitador.html
+// Guarda en 3 niveles:
+// 1) localStorage (siempre)
+// 2) intenta leer/escribir en JSON del servidor (data/*.json vía PHP)
+// 3) si el servidor no responde, trabaja solo con localStorage
 // ========================================
 (function () {
+  // claves locales
   const KEY_OPCIONES = 'pv_global_opciones';
   const KEY_RESPUESTAS = 'pv_global_respuestas';
+
+  // rutas remotas (desde pages/global/... el ../../ ya nos deja en raíz del proyecto)
+  const URL_OPCIONES_JSON = '../../data/opciones-global.json';
+  const URL_RESPUESTAS_JSON = '../../data/respuestas-global.json';
+  const URL_GUARDAR_OPCIONES = '../../data/guardar-opciones.php';
 
   const contenedorEditor = document.getElementById('pv-editor-lista');
   const btnGuardar = document.getElementById('pv-guardar-opciones');
@@ -17,11 +26,28 @@
   const btnLimpiarBusqueda = document.getElementById('pv-limpiar-busqueda');
   const btnDescargarExcel = document.getElementById('pv-descargar-excel');
 
-  // ----------------------------------------
-  // Inicializar editor con mínimo 5 campos
-  // ----------------------------------------
-  const opcionesGuardadas = cargarOpciones();
-  renderizarInputs(opcionesGuardadas.length ? opcionesGuardadas : ['', '', '', '', '']);
+  // Vamos a cargar primero las opciones del servidor; si falla, usamos localStorage.
+  Promise.all([
+    cargarOpcionesServidor(),
+    cargarRespuestasServidor()
+  ]).then(([opcionesSrv, respuestasSrv]) => {
+    const opcionesIniciales = opcionesSrv && opcionesSrv.length
+      ? opcionesSrv
+      : (cargarOpcionesLocal().length ? cargarOpcionesLocal() : ['', '', '', '', '']);
+
+    renderizarInputs(opcionesIniciales);
+
+    // guardamos también localmente lo que venga del servidor para que quede sincronizado
+    guardarOpcionesLocal(opcionesIniciales);
+
+    // pintar tabla con lo que haya
+    renderizarTabla(respuestasSrv.length ? respuestasSrv : cargarRespuestasLocal());
+  }).catch(() => {
+    // si algo falla, modo solo local
+    const opcionesIniciales = cargarOpcionesLocal().length ? cargarOpcionesLocal() : ['', '', '', '', ''];
+    renderizarInputs(opcionesIniciales);
+    renderizarTabla(cargarRespuestasLocal());
+  });
 
   // ----------------------------------------
   // Eventos
@@ -31,59 +57,132 @@
       const valores = leerInputs()
         .map(v => v.trim())
         .filter(v => v !== '');
-      guardarOpciones(valores);
-      renderizarTabla(cargarRespuestas());
+
+      // guardar local
+      guardarOpcionesLocal(valores);
+
+      // intentar guardar en servidor
+      guardarOpcionesServidor(valores);
+
+      // refrescar tabla por si algo depende de las opciones
+      renderizarTabla(cargarRespuestasLocal());
     });
   }
 
   if (btnLimpiar) {
     btnLimpiar.addEventListener('click', function () {
+      // solo limpiamos la vista; si después da guardar, sí se limpia en local/servidor
       renderizarInputs(['', '', '', '', '']);
-      // Si después de esto da guardar, se borran de la “base” porque guarda arreglo vacío
     });
   }
 
   if (inputBuscar && btnLimpiarBusqueda) {
     btnLimpiarBusqueda.addEventListener('click', function () {
       inputBuscar.value = '';
-      renderizarTabla(cargarRespuestas());
+      // preferimos lo remoto si está
+      cargarRespuestasServidor()
+        .then(renderizarTabla)
+        .catch(() => renderizarTabla(cargarRespuestasLocal()));
     });
 
     inputBuscar.addEventListener('input', function () {
-      const todas = cargarRespuestas();
-      const q = inputBuscar.value.toLowerCase();
-      const filtradas = todas.filter(r => (r.nombre || '').toLowerCase().includes(q));
+      const query = inputBuscar.value.toLowerCase();
+      // filtramos sobre lo que tengamos local
+      const base = cargarRespuestasLocal();
+      const filtradas = base.filter(r => (r.nombre || '').toLowerCase().includes(query));
       renderizarTabla(filtradas);
     });
   }
 
   if (btnDescargarExcel) {
     btnDescargarExcel.addEventListener('click', function () {
-      const datos = cargarRespuestas();
+      // tomamos lo que haya en local (puede que aún no se haya sincronizado)
+      const datos = cargarRespuestasLocal();
       exportarCSV(datos);
     });
   }
 
-  // Pintar tabla al inicio
-  renderizarTabla(cargarRespuestas());
-
   // ========================================
-  // Funciones de opciones
+  // Carga/guardado de OPCIONES
   // ========================================
-  function cargarOpciones() {
+  function cargarOpcionesLocal() {
     try {
       const raw = localStorage.getItem(KEY_OPCIONES);
       return raw ? JSON.parse(raw) : [];
     } catch (err) {
-      console.warn('No se pudieron cargar las opciones', err);
+      console.warn('No se pudieron cargar las opciones locales', err);
       return [];
     }
   }
 
-  function guardarOpciones(lista) {
+  function guardarOpcionesLocal(lista) {
     localStorage.setItem(KEY_OPCIONES, JSON.stringify(lista));
   }
 
+  function cargarOpcionesServidor() {
+    return fetch(URL_OPCIONES_JSON + '?t=' + Date.now())
+      .then(res => {
+        if (!res.ok) throw new Error('No se pudo leer opciones del servidor');
+        return res.json();
+      })
+      .catch(err => {
+        console.warn('Fallo al leer opciones del servidor, se usará localStorage', err);
+        return [];
+      });
+  }
+
+  function guardarOpcionesServidor(lista) {
+    // requiere que exista data/guardar-opciones.php del lado del servidor
+    fetch(URL_GUARDAR_OPCIONES, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(lista)
+    })
+      .then(res => res.json())
+      .then(json => {
+        if (!json.ok) {
+          console.warn('El servidor respondió pero no confirmó el guardado de opciones');
+        }
+      })
+      .catch(err => {
+        console.warn('No se pudieron guardar las opciones en el servidor', err);
+      });
+  }
+
+  // ========================================
+  // Carga de RESPUESTAS
+  // (aquí solo leemos; escribirán la encuesta y el PHP)
+  // ========================================
+  function cargarRespuestasLocal() {
+    try {
+      const raw = localStorage.getItem(KEY_RESPUESTAS);
+      return raw ? JSON.parse(raw) : [];
+    } catch (err) {
+      console.warn('No se pudieron cargar las respuestas locales', err);
+      return [];
+    }
+  }
+
+  function cargarRespuestasServidor() {
+    return fetch(URL_RESPUESTAS_JSON + '?t=' + Date.now())
+      .then(res => {
+        if (!res.ok) throw new Error('No se pudo leer respuestas del servidor');
+        return res.json();
+      })
+      .then(lista => {
+        // las copiamos a local para tener espejo
+        localStorage.setItem(KEY_RESPUESTAS, JSON.stringify(lista));
+        return lista;
+      })
+      .catch(err => {
+        console.warn('Fallo al leer respuestas del servidor, se usará localStorage', err);
+        return [];
+      });
+  }
+
+  // ========================================
+  // Render de inputs (parte superior)
+  // ========================================
   function renderizarInputs(valores) {
     if (!contenedorEditor) return;
     contenedorEditor.innerHTML = '';
@@ -102,7 +201,7 @@
       contenedorEditor.appendChild(input);
     });
 
-    // Botón +
+    // botón +
     const btnMas = document.createElement('button');
     btnMas.type = 'button';
     btnMas.textContent = '+';
@@ -121,20 +220,10 @@
   }
 
   // ========================================
-  // Funciones de tabla (usa d3 si está disponible)
-  // Estructura de respuesta esperada:
-  // [{ nombre: 'Ana', prioridades: ['Opción 3','Opción 1', ...] }]
+  // Render de tabla de resultados (usa d3 si está disponible)
+  // Estructura esperada:
+  // [{ nombre: 'Ana', prioridades: ['Opción 3','Opción 1', ...], ts: '2025-11-05T...' }]
   // ========================================
-  function cargarRespuestas() {
-    try {
-      const raw = localStorage.getItem(KEY_RESPUESTAS);
-      return raw ? JSON.parse(raw) : [];
-    } catch (err) {
-      console.warn('No se pudieron cargar las respuestas', err);
-      return [];
-    }
-  }
-
   function renderizarTabla(respuestas) {
     if (!tablaResultados) return;
 
@@ -146,7 +235,6 @@
     }
 
     const maxPos = d3.max(respuestas, d => (d.prioridades ? d.prioridades.length : 0)) || 0;
-
     const table = d3.select(tablaResultados)
       .append('table')
       .attr('class', 'pv-tabla');
@@ -189,7 +277,11 @@
   function exportarCSV(respuestas) {
     if (!respuestas || !respuestas.length) return;
 
-    const maxPos = d3.max(respuestas, d => (d.prioridades ? d.prioridades.length : 0)) || 0;
+    const maxPos = respuestas.reduce((max, r) => {
+      const len = r.prioridades ? r.prioridades.length : 0;
+      return len > max ? len : max;
+    }, 0);
+
     const encabezados = ['nombre'];
     for (let i = 1; i <= maxPos; i++) encabezados.push('p' + i);
 
