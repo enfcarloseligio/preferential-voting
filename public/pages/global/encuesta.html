@@ -1,4 +1,4 @@
-<!-- pages/global/encuesta.html -->
+<!-- public/pages/global/encuesta.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,7 +9,6 @@
   <!-- estilos institucionales -->
   <link rel="stylesheet" href="../../styles.css" />
   <link rel="stylesheet" href="../../styles/encuesta-global.css" />
-  <!-- estilos específicos para la encuesta (opcional, puedes crear luego styles/encuesta-global.css) -->
 </head>
 
 <body>
@@ -72,9 +71,11 @@
     </section>
   </main>
 
-<!-- scripts locales del proyecto -->
-  <script src="./scripts/inyectar-layout.js" defer></script>
-  <script src="./scripts/utils/auth.js" defer></script>
-  <script src="./scripts/code.js" defer></script>
+  <!-- scripts locales del proyecto (ajustados a la estructura /public) -->
+  <script src="../../scripts/inyectar-layout.js" defer></script>
+  <script src="../../scripts/utils/auth.js" defer></script>
+
+  <!-- script específico de esta página -->
+  <script src="../../scripts/encuesta-global.js" defer></script>
 </body>
 </html>

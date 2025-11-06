@@ -1,10 +1,12 @@
-<!-- pages/global/facilitador.html -->
+<!-- public/pages/global/facilitador.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <title>Facilitador – Global</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- estilos globales (desde /public) -->
   <link rel="stylesheet" href="../../styles.css" />
   <link rel="stylesheet" href="../../styles/facilitador-global.css" />
 </head>
@@ -20,7 +22,6 @@
           <label>Opción 1</label>
           <input type="text" placeholder="Escribe la opción 1" />
           <button type="button" class="button pv-agregar-opcion">+</button>
-          <!-- El JS puede clonar estos inputs -->
         </div>
 
         <div class="pv-editor-acciones">
@@ -52,15 +53,7 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Aquí el JS va a ir metiendo los registros -->
-            <tr>
-              <td>Participante demo</td>
-              <td>Opción 3</td>
-              <td>Opción 1</td>
-              <td>Opción 5</td>
-              <td>Opción 2</td>
-              <td>Opción 4</td>
-            </tr>
+            <!-- el JS llenará esto con data/respuestas-global.json -->
           </tbody>
         </table>
       </div>
@@ -69,15 +62,14 @@
     </section>
   </main>
 
-  <!-- scripts locales del proyecto -->
-  <script src="./scripts/inyectar-layout.js" defer></script>
-  <script src="./scripts/utils/auth.js" defer></script>
-  <script src="./scripts/code.js" defer></script>
+  <!-- scripts locales comunes (desde /public/scripts) -->
+  <script src="../../scripts/inyectar-layout.js" defer></script>
+  <script src="../../scripts/utils/auth.js" defer></script>
 
-  <!-- script externo (d3) debe ir antes que el que lo usa -->
+  <!-- d3 externo -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
 
-  <!-- script local que sí usa d3 -->
+  <!-- script de esta página -->
   <script src="../../scripts/facilitador-global.js"></script>
 </body>
 </html>

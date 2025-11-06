@@ -1,32 +1,36 @@
-<!-- pages/global/resultados.html -->
+<!-- public/pages/global/resultados.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <title>Resultados – Global</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Estilos institucionales -->
   <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../styles/resultados-global.css" />
 </head>
+
 <body>
   <main>
     <section>
       <h1>Resultados del consenso</h1>
       <p class="texto-nota">Visualización global e individual de las prioridades.</p>
 
-      <!-- Gráfica del resultado global -->
+      <!-- ========================================
+           Gráfica del resultado global
+           ======================================== -->
       <div class="pv-grafica-global" id="pv-grafica-global">
         <!-- Aquí irá la gráfica principal -->
         <p>Gráfica del Resultado Global</p>
       </div>
 
-      <!-- Gráficas individuales -->
+      <!-- ========================================
+           Gráficas individuales
+           ======================================== -->
       <div class="pv-graficas-individuales" id="pv-graficas-individuales">
         <h2 class="sr-only">Gráficas individuales</h2>
-        <!-- Aquí el JS puede ir metiendo las mini-gráficas -->
-        <div class="pv-mini-grafica">Gráfica 1</div>
-        <div class="pv-mini-grafica">Gráfica 2</div>
-        <div class="pv-mini-grafica">Gráfica 3</div>
-        <div class="pv-mini-grafica">Gráfica 4</div>
+        <!-- El JS agregará mini-gráficas dinámicas -->
       </div>
 
       <button type="button" class="button" id="pv-imprimir-pdf">Imprimir PDF</button>
@@ -35,9 +39,18 @@
     </section>
   </main>
 
-<!-- scripts locales del proyecto -->
-  <script src="./scripts/inyectar-layout.js" defer></script>
-  <script src="./scripts/utils/auth.js" defer></script>
-  <script src="./scripts/code.js" defer></script>
+  <!-- ========================================
+       Scripts locales del proyecto
+       ======================================== -->
+  <script src="../../scripts/inyectar-layout.js" defer></script>
+  <script src="../../scripts/utils/auth.js" defer></script>
+
+  <!-- Librerías externas -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Script específico de resultados -->
+  <script src="../../scripts/resultados-global.js" defer></script>
 </body>
 </html>
