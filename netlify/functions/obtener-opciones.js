@@ -3,23 +3,30 @@ const { getStore } = require('@netlify/blobs');
 
 exports.handler = async () => {
   try {
-    const store = getStore('preferential-voting');
-    // guardamos siempre en la misma clave
-    const data = (await store.getJSON('opciones-global.json')) || {};
-    const opciones = Array.isArray(data.opciones) ? data.opciones : [];
+    const siteID = process.env.NETLIFY_SITE_ID;
+    const token = process.env.NETLIFY_AUTH_TOKEN;
+
+    const store = getStore(
+      {
+        name: 'preferential-voting',
+        siteID,
+        token,
+      },
+      'preferential-voting'
+    );
+
+    const opciones = (await store.getJSON('opciones-global.json')) || [];
 
     return {
       statusCode: 200,
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify(opciones),
-      headers: {
-        'Content-Type': 'application/json'
-      }
     };
   } catch (err) {
     console.error('Error al leer opciones:', err);
     return {
       statusCode: 500,
-      body: 'Error al leer opciones'
+      body: 'Error al leer opciones',
     };
   }
 };
