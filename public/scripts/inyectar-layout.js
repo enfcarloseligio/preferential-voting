@@ -1,4 +1,4 @@
-// scripts/inyectar-layout.js
+// public/scripts/inyectar-layout.js
 // ========================================
 // Inyectar Layout Global (Header, Banner, Footer)
 // Funciona tanto en local (con /public/) como en Netlify (sin /public/)

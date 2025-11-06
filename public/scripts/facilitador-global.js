@@ -1,9 +1,4 @@
 // public/scripts/facilitador-global.js
-// ========================================
-// Página: public/pages/global/facilitador.html
-// Origen de datos (prod): /.netlify/functions/*
-// Origen de datos (local): ../../data/*.json y ../../data/*.php
-// ========================================
 (function () {
   const API_BASE = '/.netlify/functions';
   const LOCAL_OPCIONES_JSON = '../../data/opciones-global.json';
@@ -14,46 +9,38 @@
   const btnGuardar = document.getElementById('pv-guardar-opciones');
   const btnLimpiar = document.getElementById('pv-limpiar-opciones');
 
+  const tabla = document.querySelector('#pv-tabla-resultados tbody');
   const inputBuscar = document.getElementById('pv-buscar');
   const btnLimpiarBusqueda = document.getElementById('pv-limpiar-busqueda');
   const btnDescargar = document.getElementById('pv-descargar-excel');
-  const contTabla = document.getElementById('pv-tabla-resultados');
 
-  // ============================
-  // Inicialización
-  // ============================
-  cargarOpciones();
-  cargarRespuestas();
+  // al cargar: traer opciones y respuestas
+  init();
 
-  // botón + dentro del primer bloque
-  if (contLista) {
-    contLista.addEventListener('click', function (ev) {
-      if (ev.target.classList.contains('pv-agregar-opcion')) {
-        agregarInputOpcion();
-      }
-    });
+  async function init() {
+    await cargarOpciones();
+    await cargarRespuestas();
   }
 
+  // ============================
+  // Eventos
+  // ============================
   if (btnGuardar) {
     btnGuardar.addEventListener('click', guardarOpciones);
   }
 
   if (btnLimpiar) {
-    btnLimpiar.addEventListener('click', limpiarInputs);
-  }
-
-  if (btnLimpiarBusqueda) {
-    btnLimpiarBusqueda.addEventListener('click', function () {
-      if (inputBuscar) {
-        inputBuscar.value = '';
-      }
-      cargarRespuestas();
-    });
+    btnLimpiar.addEventListener('click', () => pintarOpciones(['']));
   }
 
   if (inputBuscar) {
-    inputBuscar.addEventListener('input', function () {
-      cargarRespuestas(inputBuscar.value.trim());
+    inputBuscar.addEventListener('input', () => cargarRespuestas(inputBuscar.value.trim()));
+  }
+
+  if (btnLimpiarBusqueda) {
+    btnLimpiarBusqueda.addEventListener('click', () => {
+      inputBuscar.value = '';
+      cargarRespuestas();
     });
   }
 
@@ -62,10 +49,11 @@
   }
 
   // ============================
-  // Funciones de carga
+  // Cargar OPCIONES
   // ============================
   async function cargarOpciones() {
     let opciones = [];
+
     // 1. intentar Netlify
     try {
       const res = await fetch(`${API_BASE}/obtener-opciones`);
@@ -73,10 +61,10 @@
         opciones = await res.json();
       }
     } catch (e) {
-      // ignoramos, probamos local
+      // seguimos
     }
 
-    // 2. si no hay opciones, intentar local (solo en dev con php -S)
+    // 2. intentar local (por si estás en php -S)
     if (!opciones || !opciones.length) {
       try {
         const res = await fetch(LOCAL_OPCIONES_JSON + '?t=' + Date.now());
@@ -84,40 +72,43 @@
           opciones = await res.json();
         }
       } catch (e) {
-        console.warn('No se pudieron cargar opciones ni de Netlify ni de local.');
+        // nada
       }
     }
 
-    // pintar
-    if (opciones && opciones.length) {
-      pintarOpciones(opciones);
+    // 3. si aun así no hay, ponemos un input vacío
+    if (!opciones || !opciones.length) {
+      opciones = [''];
     }
+
+    pintarOpciones(opciones);
   }
 
+  // ============================
+  // Cargar RESPUESTAS
+  // ============================
   async function cargarRespuestas(filtroNombre = '') {
     let respuestas = [];
-    // 1. intentar Netlify
+
+    // 1. Netlify
     try {
       const res = await fetch(`${API_BASE}/obtener-respuestas`);
       if (res.ok) {
         respuestas = await res.json();
       }
-    } catch (e) {
-      // pasar a local
-    }
+    } catch (e) {}
 
-    // 2. local
-    if (!respuestas || !Array.isArray(respuestas) || !respuestas.length) {
+    // 2. Local
+    if (!respuestas || !respuestas.length) {
       try {
         const res = await fetch(LOCAL_RESPUESTAS_JSON + '?t=' + Date.now());
         if (res.ok) {
           respuestas = await res.json();
         }
-      } catch (e) {
-        console.warn('No se pudieron cargar respuestas ni de Netlify ni de local.');
-      }
+      } catch (e) {}
     }
 
+    // filtrar
     if (filtroNombre) {
       respuestas = respuestas.filter(r =>
         (r.nombre || '').toLowerCase().includes(filtroNombre.toLowerCase())
@@ -128,7 +119,7 @@
   }
 
   // ============================
-  // Guardar opciones
+  // Guardar OPCIONES
   // ============================
   async function guardarOpciones() {
     const opciones = leerOpcionesDesdeInputs();
@@ -137,20 +128,21 @@
       return;
     }
 
-    // 1. intentar Netlify
     let guardado = false;
+
+    // 1. Netlify
     try {
       const res = await fetch(`${API_BASE}/guardar-opciones`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(opciones),
       });
-      if (res.ok) guardado = true;
-    } catch (e) {
-      // seguimos con local
-    }
+      if (res.ok) {
+        guardado = true;
+      }
+    } catch (e) {}
 
-    // 2. intentar local (solo si estás corriendo php -S)
+    // 2. local (solo si lo tienes corriendo)
     if (!guardado) {
       try {
         const res = await fetch(LOCAL_GUARDAR_OPCIONES, {
@@ -158,124 +150,98 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(opciones),
         });
-        if (res.ok) guardado = true;
-      } catch (e) {
-        console.warn('No se pudo guardar en local.', e);
-      }
+        if (res.ok) {
+          guardado = true;
+        }
+      } catch (e) {}
     }
 
     if (guardado) {
       alert('Opciones guardadas.');
-      // recargar para tener la versión del servidor
-      cargarOpciones();
+      cargarOpciones(); // recarga lo que quedó en Netlify
     } else {
       alert('No se pudieron guardar las opciones.');
     }
   }
 
   // ============================
-  // Utilidades de la UI
+  // Helpers de UI
   // ============================
   function pintarOpciones(opciones) {
     if (!contLista) return;
     contLista.innerHTML = '';
     opciones.forEach((op, idx) => {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'pv-editor-item';
+      const div = document.createElement('div');
+      div.className = 'pv-editor-item';
 
       const label = document.createElement('label');
       label.textContent = `Opción ${idx + 1}`;
 
       const input = document.createElement('input');
       input.type = 'text';
-      input.value = op;
+      input.value = op || '';
       input.placeholder = `Escribe la opción ${idx + 1}`;
 
-      wrapper.appendChild(label);
-      wrapper.appendChild(input);
-      contLista.appendChild(wrapper);
+      const btnMas = document.createElement('button');
+      btnMas.type = 'button';
+      btnMas.textContent = '+';
+      btnMas.className = 'button pv-agregar-opcion';
+      btnMas.addEventListener('click', () => {
+        opciones.push('');
+        pintarOpciones(opciones);
+      });
+
+      div.appendChild(label);
+      div.appendChild(input);
+      // solo al último le ponemos el +
+      if (idx === opciones.length - 1) {
+        div.appendChild(btnMas);
+      }
+
+      contLista.appendChild(div);
     });
-
-    // botón + al final
-    const btnMas = document.createElement('button');
-    btnMas.type = 'button';
-    btnMas.className = 'button pv-agregar-opcion';
-    btnMas.textContent = '+';
-    contLista.appendChild(btnMas);
-  }
-
-  function agregarInputOpcion() {
-    if (!contLista) return;
-    const count = contLista.querySelectorAll('input[type="text"]').length + 1;
-
-    const wrapper = document.createElement('div');
-    wrapper.className = 'pv-editor-item';
-
-    const label = document.createElement('label');
-    label.textContent = `Opción ${count}`;
-
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.placeholder = `Escribe la opción ${count}`;
-
-    wrapper.appendChild(label);
-    wrapper.appendChild(input);
-
-    // insertar antes del botón +
-    const btnMas = contLista.querySelector('.pv-agregar-opcion');
-    if (btnMas) {
-      contLista.insertBefore(wrapper, btnMas);
-    } else {
-      contLista.appendChild(wrapper);
-    }
   }
 
   function leerOpcionesDesdeInputs() {
-    if (!contLista) return [];
-    const inputs = contLista.querySelectorAll('input[type="text"]');
-    return Array.from(inputs)
-      .map(i => i.value.trim())
-      .filter(Boolean);
+    return Array.from(contLista.querySelectorAll('input[type="text"]'))
+      .map(inp => inp.value.trim())
+      .filter(v => v !== '');
   }
 
-  function limpiarInputs() {
-    if (!contLista) return;
-    contLista.querySelectorAll('input[type="text"]').forEach(inp => (inp.value = ''));
-  }
+  function pintarTabla(respuestas) {
+    if (!tabla) return;
+    tabla.innerHTML = '';
 
-  function pintarTabla(registros) {
-    if (!contTabla) return;
-    // si no hay d3, pintamos una tabla simple
-    if (typeof d3 === 'undefined') {
-      contTabla.innerHTML = '<p>No se pudo cargar d3.js para la tabla.</p>';
-      return;
-    }
+    respuestas.forEach(r => {
+      const tr = document.createElement('tr');
+      const tdNombre = document.createElement('td');
+      tdNombre.textContent = r.nombre || '(sin nombre)';
+      tr.appendChild(tdNombre);
 
-    // limpiar
-    contTabla.innerHTML = '';
-
-    const table = d3.select(contTabla).append('table');
-    const thead = table.append('thead').append('tr');
-    thead.append('th').text('Nombre');
-
-    // determinar el máximo de prioridades
-    const maxP = d3.max(registros, r => (r.prioridades ? r.prioridades.length : 0)) || 0;
-    for (let i = 1; i <= maxP; i++) {
-      thead.append('th').text('P' + i);
-    }
-
-    const tbody = table.append('tbody');
-    registros.forEach(r => {
-      const tr = tbody.append('tr');
-      tr.append('td').text(r.nombre || '(sin nombre)');
-      if (r.prioridades && r.prioridades.length) {
-        r.prioridades.forEach(p => tr.append('td').text(p));
+      for (let i = 0; i < 5; i++) {
+        const td = document.createElement('td');
+        td.textContent = r.prioridades && r.prioridades[i] ? r.prioridades[i] : '';
+        tr.appendChild(td);
       }
+
+      tabla.appendChild(tr);
     });
   }
 
   function descargarComoCSV() {
-    // esto lo puedes detallar después
-    alert('Descarga de Excel/CSV pendiente de implementar.');
+    if (!tabla) return;
+    const filas = Array.from(tabla.parentElement.querySelectorAll('tr'));
+    const lineas = filas.map(tr => {
+      return Array.from(tr.children)
+        .map(td => `"${(td.textContent || '').replace(/"/g, '""')}"`)
+        .join(',');
+    });
+    const blob = new Blob([lineas.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'respuestas-global.csv';
+    a.click();
+    URL.revokeObjectURL(url);
   }
 })();

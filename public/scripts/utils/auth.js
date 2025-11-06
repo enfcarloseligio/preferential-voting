@@ -1,4 +1,4 @@
-// scripts/utils/auth.js
+// public/scripts/utils/auth.js
 
 const authItems = document.querySelectorAll('.solo-autenticado');
 const btnLogin = document.getElementById('btn-login');

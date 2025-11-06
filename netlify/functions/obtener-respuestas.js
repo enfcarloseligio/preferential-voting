@@ -1,7 +1,7 @@
 // netlify/functions/obtener-respuestas.js
-import { getStore } from '@netlify/blobs';
+const { getStore } = require('@netlify/blobs');
 
-export async function handler() {
+exports.handler = async () => {
   try {
     const store = getStore('preferential-voting');
     const respuestas = (await store.getJSON('respuestas-global.json')) || [];
@@ -13,4 +13,4 @@ export async function handler() {
     console.error('Error al leer respuestas:', err);
     return { statusCode: 500, body: 'Error al leer respuestas' };
   }
-}
+};

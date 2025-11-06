@@ -5,25 +5,18 @@
   <meta charset="UTF-8" />
   <title>Facilitador – Global</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- estilos globales (desde /public) -->
   <link rel="stylesheet" href="../../styles.css" />
   <link rel="stylesheet" href="../../styles/facilitador-global.css" />
 </head>
-
 <body>
   <main>
     <section class="solo-autenticado">
       <h1>Configuración del ejercicio</h1>
       <p class="texto-nota">Captura o edita las opciones que verán los participantes.</p>
 
-      <!-- Opciones editables -->
-      <div class="pv-editor-opciones">
+      <div class="pv-editor-opciones" id="pv-editor-opciones">
         <div class="pv-editor-lista" id="pv-editor-lista">
-          <label>Opción 1</label>
-          <input type="text" placeholder="Escribe la opción 1" />
-          <button type="button" class="button pv-agregar-opcion">+</button>
-          <!-- el JS clonará más inputs aquí -->
+          <!-- aquí se pintan los inputs -->
         </div>
 
         <div class="pv-editor-acciones">
@@ -33,7 +26,6 @@
       </div>
     </section>
 
-    <!-- Visualización de resultados (tabla) -->
     <section class="solo-autenticado">
       <h2>Resultados capturados</h2>
       <div class="pv-busqueda">
@@ -54,9 +46,7 @@
               <th>P5</th>
             </tr>
           </thead>
-          <tbody>
-            <!-- el JS llenará esto con /data/respuestas-global.json o desde la función -->
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
 
@@ -64,15 +54,9 @@
     </section>
   </main>
 
+  <!-- importante: primero el inyectar -->
+  <script src="../../scripts/inyectar-layout.js" defer></script>
+  <!-- y luego este -->
+  <script src="../../scripts/facilitador-global.js" defer></script>
 </body>
 </html>
-
-  <!-- scripts locales comunes (desde /public/scripts) -->
-  <script src="../../scripts/inyectar-layout.js" defer></script>
-  <script src="../../scripts/utils/auth.js" defer></script>
-
-  <!-- d3 externo (antes del script que lo pueda usar) -->
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-
-    <!-- script específico de esta página -->
-  <script src="../../scripts/facilitador-global.js"></script>

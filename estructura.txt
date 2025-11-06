@@ -99,6 +99,7 @@ D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\PUBLIC
 ¦   ¦   encuesta-global.js
 ¦   ¦   facilitador-global.js
 ¦   ¦   inyectar-layout.js
+¦   ¦   test-parpadeo.js
 ¦   ¦   
 ¦   +---componentes
 ¦   +---utils
