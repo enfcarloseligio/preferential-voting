@@ -24,3 +24,4 @@ export async function handler(event) {
     return { statusCode: 500, body: 'Error interno al guardar opciones' };
   }
 }
+
