@@ -1,197 +1,176 @@
-// scripts/encuesta-global.js
+// public/scripts/encuesta-global.js
 // ========================================
-// Página: pages/global/encuesta.html
-// Fuente de verdad: /data/opciones-global.json
-// Guardado: /data/guardar-respuesta.php
-// localStorage solo como espejo / respaldo
+// Página: public/pages/global/encuesta.html
+// Lee las opciones definidas por el facilitador
+// Envía las respuestas a Netlify (prod) o PHP (local)
 // ========================================
 (function () {
-  const KEY_OPCIONES = 'pv_global_opciones';
-  const KEY_RESPUESTAS = 'pv_global_respuestas';
-
-  // rutas a nuestros JSON / PHP
-  const URL_OPCIONES_JSON = '../../data/opciones-global.json';
-  const URL_GUARDAR_RESPUESTA = '../../data/guardar-respuesta.php';
+  const API_BASE = '/.netlify/functions';
+  const LOCAL_OPCIONES_JSON = '../../data/opciones-global.json';
+  const LOCAL_GUARDAR_RESPUESTA = '../../data/guardar-respuesta.php';
 
   const contOpciones = document.getElementById('pv-opciones-lista');
   const slots = document.querySelectorAll('.pv-slot');
   const inputNombre = document.getElementById('pv-nombre');
   const btnGuardar = document.getElementById('pv-guardar-voto');
 
-  // cuántas debe llenar el participante
-  let totalOpcionesDisponibles = 0;
+  let opcionesDisponibles = [];
 
-  // 1) leemos SIEMPRE del archivo de /data/
-  cargarOpcionesServidor().then(opciones => {
-    totalOpcionesDisponibles = opciones.filter(Boolean).length;
-    renderizarOpciones(opciones);
-    // espejo local por si se cae el server
-    guardarOpcionesLocal(opciones);
-  }).catch(() => {
-    // si por algo no se pudo leer el JSON (ej. estás en live server sin PHP),
-    // tratamos de no romper y usamos lo local
-    const locales = leerOpcionesLocal();
-    totalOpcionesDisponibles = locales.filter(Boolean).length;
-    renderizarOpciones(locales);
-  });
+  // init
+  cargarOpciones();
 
-  // guardar respuesta
   if (btnGuardar) {
-    btnGuardar.addEventListener('click', function () {
-      const nombre = (inputNombre?.value || '').trim();
-      const prioridades = leerPrioridades();
-
-      if (!nombre) {
-        alert('Por favor escribe tu nombre.');
-        return;
-      }
-
-      // el participante debe llenar todas las que definió el facilitador,
-      // pero no más de las que hay en pantalla (slots)
-      const posicionesRequeridas = Math.min(totalOpcionesDisponibles || 0, slots.length);
-
-      if (prioridades.length < posicionesRequeridas) {
-        alert('Debes priorizar las ' + posicionesRequeridas + ' opciones antes de guardar.');
-        return;
-      }
-
-      const registro = { nombre, prioridades };
-
-      // 1) guardamos localmente para verlos en este navegador
-      guardarRespuestaLocal(registro);
-
-      // 2) mandamos al servidor para que se agregue a data/respuestas-global.json
-      fetch(URL_GUARDAR_RESPUESTA, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(registro)
-      })
-        .then(r => r.json())
-        .then(json => {
-          if (!json.ok) {
-            console.warn('El servidor respondió pero no confirmó el guardado.');
-          }
-        })
-        .catch(err => {
-          console.warn('No se pudo enviar la respuesta al servidor. Quedó en localStorage.', err);
-        });
-
-      // limpiar UI
-      limpiarSlots();
-      if (inputNombre) inputNombre.value = '';
-      alert('Respuesta guardada.');
-    });
+    btnGuardar.addEventListener('click', guardarRespuesta);
   }
 
   // ========================================
-  // funciones de carga
+  // Cargar opciones
   // ========================================
-  function cargarOpcionesServidor() {
-    // le agregamos ?t= para evitar cache
-    return fetch(URL_OPCIONES_JSON + '?t=' + Date.now())
-      .then(res => {
-        if (!res.ok) throw new Error('No se pudo leer opciones del servidor');
-        return res.json();
-      });
-  }
-
-  function leerOpcionesLocal() {
+  async function cargarOpciones() {
+    let opciones = [];
+    // 1. intentar Netlify
     try {
-      const raw = localStorage.getItem(KEY_OPCIONES);
-      return raw ? JSON.parse(raw) : [];
+      const res = await fetch(`${API_BASE}/obtener-opciones`);
+      if (res.ok) {
+        opciones = await res.json();
+      }
     } catch (e) {
-      return [];
+      // pasamos a local
     }
+
+    // 2. intentar local
+    if (!opciones || !opciones.length) {
+      try {
+        const res = await fetch(LOCAL_OPCIONES_JSON + '?t=' + Date.now());
+        if (res.ok) {
+          opciones = await res.json();
+        }
+      } catch (e) {
+        console.warn('No se pudieron cargar las opciones ni de Netlify ni de local.');
+      }
+    }
+
+    opcionesDisponibles = Array.isArray(opciones) ? opciones : [];
+
+    pintarOpciones(opcionesDisponibles);
   }
 
-  function guardarOpcionesLocal(lista) {
-    localStorage.setItem(KEY_OPCIONES, JSON.stringify(lista));
-  }
-
-  // ========================================
-  // render de opciones
-  // ========================================
-  function renderizarOpciones(opciones) {
+  function pintarOpciones(lista) {
     if (!contOpciones) return;
     contOpciones.innerHTML = '';
 
-    opciones.forEach(opcion => {
-      if (!opcion) return;
+    lista.forEach((texto, idx) => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'button pv-chip-opcion';
-      btn.textContent = opcion;
-      btn.dataset.valor = opcion;
-      btn.addEventListener('click', function () {
-        colocarEnSiguienteSlot(opcion, btn);
-      });
+      btn.textContent = texto;
+      btn.dataset.valor = texto;
+      btn.addEventListener('click', () => colocarEnSlotDisponible(texto));
       contOpciones.appendChild(btn);
     });
   }
 
-  function colocarEnSiguienteSlot(valor, boton) {
-    const slotLibre = Array.from(slots).find(s => !s.textContent.trim());
-    if (!slotLibre) {
-      alert('Ya llenaste todas las posiciones. Haz clic en una posición para liberarla.');
+  function colocarEnSlotDisponible(valor) {
+    // buscar primer slot vacío
+    for (const slot of slots) {
+      if (!slot.textContent.trim()) {
+        slot.textContent = valor;
+        slot.classList.add('pv-slot-ocupado');
+        return;
+      }
+    }
+    alert('Ya usaste todas las posiciones.');
+  }
+
+  // ========================================
+  // Guardar
+  // ========================================
+  async function guardarRespuesta() {
+    const nombre = (inputNombre?.value || '').trim();
+    if (!nombre) {
+      alert('Escribe tu nombre.');
       return;
     }
-    slotLibre.textContent = valor;
-    slotLibre.classList.add('pv-slot-lleno');
 
-    if (boton) {
-      boton.disabled = true;
-      boton.classList.add('pv-chip-desactivado');
-    }
-
-    // permitir limpiar
-    slotLibre.addEventListener('click', function limpiarSlot() {
-      const texto = slotLibre.textContent.trim();
-      slotLibre.textContent = '';
-      slotLibre.classList.remove('pv-slot-lleno');
-      reactivarBoton(texto);
-      slotLibre.removeEventListener('click', limpiarSlot);
-    });
-  }
-
-  function reactivarBoton(texto) {
-    if (!contOpciones) return;
-    const btn = Array.from(contOpciones.querySelectorAll('.pv-chip-opcion'))
-      .find(b => b.dataset.valor === texto);
-    if (btn) {
-      btn.disabled = false;
-      btn.classList.remove('pv-chip-desactivado');
-    }
-  }
-
-  function leerPrioridades() {
-    return Array.from(slots)
+    // prioridades según orden de slots
+    const prioridades = Array.from(slots)
       .map(s => s.textContent.trim())
       .filter(Boolean);
+
+    // cuántas debo tener?
+    const posicionesRequeridas = Math.min(
+      opcionesDisponibles.length || 0,
+      slots.length
+    );
+
+    if (prioridades.length < posicionesRequeridas) {
+      alert('Debes priorizar todas las opciones disponibles.');
+      return;
+    }
+
+    const payload = {
+      nombre,
+      prioridades
+    };
+
+    let guardado = false;
+
+    // 1. intentar Netlify
+    try {
+      const res = await fetch(`${API_BASE}/guardar-respuesta`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        guardado = true;
+      }
+    } catch (e) {
+      // sigue local
+    }
+
+    // 2. intentar local (php) si estamos en dev
+    if (!guardado) {
+      try {
+        const res = await fetch(LOCAL_GUARDAR_RESPUESTA, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          guardado = true;
+        }
+      } catch (e) {
+        console.warn('No se pudo guardar en local.', e);
+      }
+    }
+
+    // 3. espejo en localStorage
+    guardarEnLocalStorage(payload);
+
+    if (guardado) {
+      alert('Respuesta guardada.');
+      limpiarSlots();
+    } else {
+      alert('No se pudo guardar, pero se dejó una copia local.');
+    }
+  }
+
+  function guardarEnLocalStorage(payload) {
+    try {
+      const llave = 'pv-respuestas-global';
+      const actuales = JSON.parse(localStorage.getItem(llave) || '[]');
+      actuales.push(payload);
+      localStorage.setItem(llave, JSON.stringify(actuales));
+    } catch (e) {
+      console.warn('No se pudo guardar en localStorage.');
+    }
   }
 
   function limpiarSlots() {
     slots.forEach(s => {
       s.textContent = '';
-      s.classList.remove('pv-slot-lleno');
+      s.classList.remove('pv-slot-ocupado');
     });
-    if (contOpciones) {
-      contOpciones.querySelectorAll('.pv-chip-opcion').forEach(btn => {
-        btn.disabled = false;
-        btn.classList.remove('pv-chip-desactivado');
-      });
-    }
   }
-
-  function guardarRespuestaLocal(registro) {
-    let actuales = [];
-    try {
-      const raw = localStorage.getItem(KEY_RESPUESTAS);
-      actuales = raw ? JSON.parse(raw) : [];
-    } catch (err) {
-      actuales = [];
-    }
-    actuales.push(registro);
-    localStorage.setItem(KEY_RESPUESTAS, JSON.stringify(actuales));
-  }
-
 })();
