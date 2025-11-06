@@ -1,36 +1,42 @@
 // netlify/functions/guardar-opciones.js
-import { getStore } from '@netlify/blobs';
+const { getStore } = require('@netlify/blobs');
 
-export default async (request, context) => {
+exports.handler = async (event) => {
+  // Solo aceptar POST
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      headers: { 'Content-Type': 'text/plain' },
+      body: 'Method Not Allowed',
+    };
+  }
+
   try {
-    if (request.method !== 'POST') {
-      return new Response('Método no permitido', { status: 405 });
-    }
+    const body = JSON.parse(event.body || '{}');
+    const opciones = Array.isArray(body.opciones) ? body.opciones : [];
 
-    const body = await request.json();
-    // esperamos algo como { opciones: [...] }
-    const { opciones = [] } = body;
+    const store = getStore('preferential-voting');
 
-    const store = getStore({ name: 'preferential-voting' });
-
-    // guardamos como JSON
+    // MUY importante el await
     await store.setJSON('opciones-global.json', opciones);
 
-    return new Response(JSON.stringify({ ok: true }), {
-      status: 200,
-      headers: { 'content-type': 'application/json' }
-    });
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+      },
+      body: JSON.stringify({ ok: true, message: 'Opciones guardadas.' }),
+    };
   } catch (err) {
-    return new Response(
-      JSON.stringify({
-        message: 'Error al guardar opciones',
-        error: err.message,
-        stack: err.stack
-      }),
-      {
-        status: 500,
-        headers: { 'content-type': 'application/json' }
-      }
-    );
+    console.error('Error al guardar opciones:', err);
+    return {
+      statusCode: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store',
+      },
+      body: JSON.stringify({ ok: false, message: 'Error al guardar opciones.' }),
+    };
   }
 };

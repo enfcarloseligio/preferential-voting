@@ -1,30 +1,29 @@
 // netlify/functions/obtener-opciones.js
-import { getStore } from '@netlify/blobs';
+const { getStore } = require('@netlify/blobs');
 
-export default async (request, context) => {
+exports.handler = async () => {
   try {
-    // el nombre lo eliges tú; debe ser el mismo que uses en guardar
-    const store = getStore({ name: 'preferential-voting' });
+    const store = getStore('preferential-voting');
+    const opciones = (await store.getJSON('opciones-global.json')) || [];
 
-    // si no existe, get() con { type: 'json' } devuelve null
-    const opciones = await store.get('opciones-global.json', { type: 'json' });
-
-    return new Response(JSON.stringify(opciones ?? []), {
-      status: 200,
-      headers: { 'content-type': 'application/json' }
-    });
+    return {
+      statusCode: 200,
+      headers: {
+        // que Netlify/edge no lo deje cacheado
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+      },
+      body: JSON.stringify(opciones),
+    };
   } catch (err) {
-    // mientras depuramos, mandamos el error completo
-    return new Response(
-      JSON.stringify({
-        message: 'Error al leer opciones',
-        error: err.message,
-        stack: err.stack
-      }),
-      {
-        status: 500,
-        headers: { 'content-type': 'application/json' }
-      }
-    );
+    console.error('Error al leer opciones:', err);
+    return {
+      statusCode: 500,
+      headers: {
+        'Content-Type': 'text/plain',
+        'Cache-Control': 'no-store',
+      },
+      body: 'Error al leer opciones',
+    };
   }
 };

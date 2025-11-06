@@ -54,17 +54,17 @@
   async function cargarOpciones() {
     let opciones = [];
 
-    // 1. intentar Netlify
+    // 1. intentar Netlify (con cache buster)
     try {
-      const res = await fetch(`${API_BASE}/obtener-opciones`);
+      const res = await fetch(`${API_BASE}/obtener-opciones?t=${Date.now()}`);
       if (res.ok) {
         opciones = await res.json();
       }
     } catch (e) {
-      // seguimos
+      // seguimos al fallback
     }
 
-    // 2. intentar local (por si estás en php -S)
+    // 2. intentar local
     if (!opciones || !opciones.length) {
       try {
         const res = await fetch(LOCAL_OPCIONES_JSON + '?t=' + Date.now());
@@ -92,7 +92,7 @@
 
     // 1. Netlify
     try {
-      const res = await fetch(`${API_BASE}/obtener-respuestas`);
+      const res = await fetch(`${API_BASE}/obtener-respuestas?t=${Date.now()}`);
       if (res.ok) {
         respuestas = await res.json();
       }
@@ -130,12 +130,12 @@
 
     let guardado = false;
 
-    // 1. Netlify
+    // 1. Netlify (ahora enviamos { opciones: [...] })
     try {
       const res = await fetch(`${API_BASE}/guardar-opciones`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(opciones),
+        body: JSON.stringify({ opciones }),
       });
       if (res.ok) {
         guardado = true;
@@ -148,7 +148,7 @@
         const res = await fetch(LOCAL_GUARDAR_OPCIONES, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(opciones),
+          body: JSON.stringify({ opciones }),
         });
         if (res.ok) {
           guardado = true;
@@ -158,7 +158,8 @@
 
     if (guardado) {
       alert('Opciones guardadas.');
-      cargarOpciones(); // recarga lo que quedó en Netlify
+      // volver a pedir para ver lo que quedó en Netlify
+      cargarOpciones();
     } else {
       alert('No se pudieron guardar las opciones.');
     }
