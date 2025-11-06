@@ -2,7 +2,29 @@
   publish = "public"
   functions = "netlify/functions"
 
+# Sirve estáticos tal cual
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/components/*"
+  to = "/components/:splat"
   status = 200
+
+[[redirects]]
+  from = "/styles/*"
+  to = "/styles/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/scripts/*"
+  to = "/scripts/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/pages/*"
+  to = "/pages/:splat"
+  status = 200
+
+# ❌ opcional: si NO quieres SPA, no pongas el redirect general
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200
