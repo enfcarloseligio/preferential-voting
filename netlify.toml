@@ -2,14 +2,12 @@
   publish = "public"
   functions = "netlify/functions"
 
-# Desactivar el "pretty urls" automático de Netlify
 [build.processing]
   skip_processing = false
 
 [build.processing.html]
   pretty_urls = false
 
-# Dejar pasar los archivos estáticos de nuestras carpetas
 [[redirects]]
   from = "/pages/*"
   to = "/pages/:splat"

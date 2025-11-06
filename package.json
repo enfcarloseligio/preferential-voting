@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "@netlify/blobs": "^10.3.3"
+    "@netlify/blobs": "^6.2.0"
   }
 }
