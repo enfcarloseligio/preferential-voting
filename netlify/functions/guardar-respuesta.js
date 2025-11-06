@@ -3,30 +3,47 @@ const { getStore } = require('@netlify/blobs');
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Método no permitido' };
+    return {
+      statusCode: 405,
+      body: 'Method Not Allowed',
+    };
   }
 
   try {
-    const payload = JSON.parse(event.body || '{}');
+    const store = getStore('preferential-voting');
 
-    if (!payload.nombre || !Array.isArray(payload.prioridades)) {
-      return { statusCode: 400, body: 'Faltan campos' };
+    let nueva = {};
+    if (event.body) {
+      try {
+        nueva = JSON.parse(event.body);
+      } catch (e) {
+        nueva = {};
+      }
     }
 
-    const store = getStore('preferential-voting');
+    // leemos lo que ya hay
     const actuales = (await store.getJSON('respuestas-global.json')) || [];
 
-    payload.ts = new Date().toISOString();
-    actuales.push(payload);
+    // metemos la nueva al final
+    actuales.push({
+      nombre: nueva.nombre || '(sin nombre)',
+      prioridades: Array.isArray(nueva.prioridades) ? nueva.prioridades : [],
+      ts: Date.now(),
+    });
 
+    // guardamos
     await store.setJSON('respuestas-global.json', actuales);
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ ok: true })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ok: true }),
     };
   } catch (err) {
     console.error('Error al guardar respuesta:', err);
-    return { statusCode: 500, body: 'Error al guardar respuesta' };
+    return {
+      statusCode: 500,
+      body: 'Error al guardar respuesta',
+    };
   }
 };

@@ -55,6 +55,7 @@ El número de serie del volumen es 6076-4BBE
 D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\PUBLIC
 ¦   code.js
 ¦   index.html
+¦   package.json
 ¦   styles.css
 ¦   
 +---componentes
@@ -99,7 +100,6 @@ D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\PUBLIC
 ¦   ¦   encuesta-global.js
 ¦   ¦   facilitador-global.js
 ¦   ¦   inyectar-layout.js
-¦   ¦   test-parpadeo.js
 ¦   ¦   
 ¦   +---componentes
 ¦   +---utils

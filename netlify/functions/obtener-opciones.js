@@ -8,21 +8,13 @@ exports.handler = async () => {
 
     return {
       statusCode: 200,
-      headers: {
-        // que Netlify/edge no lo deje cacheado
-        'Content-Type': 'application/json',
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opciones),
     };
   } catch (err) {
     console.error('Error al leer opciones:', err);
     return {
       statusCode: 500,
-      headers: {
-        'Content-Type': 'text/plain',
-        'Cache-Control': 'no-store',
-      },
       body: 'Error al leer opciones',
     };
   }
