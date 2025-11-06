@@ -1,16 +1,30 @@
 // netlify/functions/obtener-opciones.js
-const { getStore } = require('@netlify/blobs');
+import { getStore } from '@netlify/blobs';
 
-exports.handler = async () => {
+export default async (request, context) => {
   try {
-    const store = getStore('preferential-voting');
-    const opciones = (await store.getJSON('opciones-global.json')) || [];
-    return {
-      statusCode: 200,
-      body: JSON.stringify(opciones)
-    };
+    // el nombre lo eliges tú; debe ser el mismo que uses en guardar
+    const store = getStore({ name: 'preferential-voting' });
+
+    // si no existe, get() con { type: 'json' } devuelve null
+    const opciones = await store.get('opciones-global.json', { type: 'json' });
+
+    return new Response(JSON.stringify(opciones ?? []), {
+      status: 200,
+      headers: { 'content-type': 'application/json' }
+    });
   } catch (err) {
-    console.error('Error al leer opciones:', err);
-    return { statusCode: 500, body: 'Error al leer opciones' };
+    // mientras depuramos, mandamos el error completo
+    return new Response(
+      JSON.stringify({
+        message: 'Error al leer opciones',
+        error: err.message,
+        stack: err.stack
+      }),
+      {
+        status: 500,
+        headers: { 'content-type': 'application/json' }
+      }
+    );
   }
 };

@@ -1,0 +1,8 @@
+{
+  "name": "preferential-voting",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "^6.5.0"
+  }
+}
