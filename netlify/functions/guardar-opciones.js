@@ -2,45 +2,53 @@
 const { getStore } = require('@netlify/blobs');
 
 exports.handler = async (event) => {
-  // solo POST
+  // Preflight
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+      body: 'OK',
+    };
+  }
+
+  // Solo POST
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
       body: 'Method Not Allowed',
     };
   }
 
   try {
     const store = getStore('preferential-voting');
+    const body = JSON.parse(event.body || '{}');
+    const opciones = Array.isArray(body.opciones) ? body.opciones : [];
 
-    // el front te está mandando un array de strings
-    let data = [];
-    if (event.body) {
-      try {
-        data = JSON.parse(event.body);
-      } catch (e) {
-        data = [];
-      }
-    }
-
-    // normalizamos: si viene objeto, lo convertimos a array
-    if (!Array.isArray(data)) {
-      data = [];
-    }
-
-    // guardamos
-    await store.setJSON('opciones-global.json', data);
+    await store.setJSON('opciones-global.json', opciones);
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ok: true }),
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ ok: true, message: 'Opciones guardadas.' }),
     };
   } catch (err) {
     console.error('Error al guardar opciones:', err);
     return {
       statusCode: 500,
-      body: 'Error al guardar opciones',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ ok: false, message: err.message }),
     };
   }
 };
