@@ -2,15 +2,15 @@
   publish = "public"
   functions = "netlify/functions"
 
-# Sirve estáticos tal cual
+# Permitir servir archivos estáticos dentro de cada carpeta
 [[redirects]]
-  from = "/components/*"
-  to = "/components/:splat"
+  from = "/pages/*"
+  to = "/pages/:splat"
   status = 200
 
 [[redirects]]
-  from = "/styles/*"
-  to = "/styles/:splat"
+  from = "/componentes/*"
+  to = "/componentes/:splat"
   status = 200
 
 [[redirects]]
@@ -19,12 +19,11 @@
   status = 200
 
 [[redirects]]
-  from = "/pages/*"
-  to = "/pages/:splat"
+  from = "/styles/*"
+  to = "/styles/:splat"
   status = 200
 
-# ❌ opcional: si NO quieres SPA, no pongas el redirect general
-# [[redirects]]
-#   from = "/*"
-#   to = "/index.html"
-#   status = 200
+[[redirects]]
+  from = "/img/*"
+  to = "/img/:splat"
+  status = 200

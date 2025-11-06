@@ -41,6 +41,11 @@ Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
 D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\NETLIFY
 +---functions
+        guardar-opciones.js
+        guardar-respuesta.js
+        obtener-opciones.js
+        obtener-respuestas.js
+        
 
 ================================
  public
