@@ -1,29 +1,3 @@
 [build]
   publish = "public"
   functions = "netlify/functions"
-
-# Permitir servir archivos estáticos dentro de cada carpeta
-[[redirects]]
-  from = "/pages/*"
-  to = "/pages/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/componentes/*"
-  to = "/componentes/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/scripts/*"
-  to = "/scripts/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/styles/*"
-  to = "/styles/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/img/*"
-  to = "/img/:splat"
-  status = 200
