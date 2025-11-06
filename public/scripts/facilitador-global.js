@@ -1,5 +1,5 @@
 // public/scripts/facilitador-global.js
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
   const API_BASE = '/.netlify/functions';
   const LOCAL_OPCIONES_JSON = '../../data/opciones-global.json';
   const LOCAL_RESPUESTAS_JSON = '../../data/respuestas-global.json';
@@ -14,10 +14,10 @@
   const btnLimpiarBusqueda = document.getElementById('pv-limpiar-busqueda');
   const btnDescargar = document.getElementById('pv-descargar-excel');
 
-  // 1) pinta algo de arranque, aunque no haya fetch todavía
+  // pintar algo de arranque
   pintarOpciones(['']);
 
-  // 2) después intenta cargar de backend
+  // luego intentar traer de backend
   init();
 
   async function init() {
@@ -26,7 +26,7 @@
   }
 
   // ============================
-  // Eventos
+  // eventos
   // ============================
   if (btnGuardar) {
     btnGuardar.addEventListener('click', guardarOpciones);
@@ -54,34 +54,32 @@
   }
 
   // ============================
-  // Cargar OPCIONES
+  // cargar opciones
   // ============================
   async function cargarOpciones() {
     let opciones = [];
 
-    // 1. intentar Netlify
+    // 1) netlify
     try {
       const res = await fetch(`${API_BASE}/obtener-opciones?t=${Date.now()}`);
       if (res.ok) {
         opciones = await res.json();
       }
     } catch (e) {
-      // si falla seguimos al local
+      // console.log('falló netlify', e);
     }
 
-    // 2. intentar local
+    // 2) local
     if (!opciones || !opciones.length) {
       try {
         const res = await fetch(LOCAL_OPCIONES_JSON + '?t=' + Date.now());
         if (res.ok) {
           opciones = await res.json();
         }
-      } catch (e) {
-        // nada
-      }
+      } catch (e) {}
     }
 
-    // 3. si sigue vacío, al menos uno
+    // 3) mínimo un input
     if (!opciones || !opciones.length) {
       opciones = [''];
     }
@@ -90,12 +88,12 @@
   }
 
   // ============================
-  // Cargar RESPUESTAS
+  // cargar respuestas
   // ============================
   async function cargarRespuestas(filtroNombre = '') {
     let respuestas = [];
 
-    // 1. Netlify
+    // 1) netlify
     try {
       const res = await fetch(`${API_BASE}/obtener-respuestas?t=${Date.now()}`);
       if (res.ok) {
@@ -103,7 +101,7 @@
       }
     } catch (e) {}
 
-    // 2. Local
+    // 2) local
     if (!respuestas || !respuestas.length) {
       try {
         const res = await fetch(LOCAL_RESPUESTAS_JSON + '?t=' + Date.now());
@@ -113,7 +111,6 @@
       } catch (e) {}
     }
 
-    // filtro
     if (filtroNombre) {
       respuestas = respuestas.filter((r) =>
         (r.nombre || '').toLowerCase().includes(filtroNombre.toLowerCase())
@@ -124,7 +121,7 @@
   }
 
   // ============================
-  // Guardar OPCIONES
+  // guardar opciones
   // ============================
   async function guardarOpciones() {
     const opciones = leerOpcionesDesdeInputs();
@@ -135,7 +132,7 @@
 
     let guardado = false;
 
-    // 1. Netlify
+    // 1) netlify
     try {
       const res = await fetch(`${API_BASE}/guardar-opciones`, {
         method: 'POST',
@@ -147,7 +144,7 @@
       }
     } catch (e) {}
 
-    // 2. local php
+    // 2) php local
     if (!guardado) {
       try {
         const res = await fetch(LOCAL_GUARDAR_OPCIONES, {
@@ -170,7 +167,7 @@
   }
 
   // ============================
-  // Helpers de UI
+  // helpers UI
   // ============================
   function pintarOpciones(opciones) {
     if (!contLista) return;
@@ -191,7 +188,6 @@
       div.appendChild(label);
       div.appendChild(input);
 
-      // botón + solo en el último
       if (idx === opciones.length - 1) {
         const btnMas = document.createElement('button');
         btnMas.type = 'button';
@@ -240,11 +236,11 @@
   function descargarComoCSV() {
     if (!tabla) return;
     const filas = Array.from(tabla.parentElement.querySelectorAll('tr'));
-    const lineas = filas.map((tr) => {
-      return Array.from(tr.children)
+    const lineas = filas.map((tr) =>
+      Array.from(tr.children)
         .map((td) => `"${(td.textContent || '').replace(/"/g, '""')}"`)
-        .join(',');
-    });
+        .join(',')
+    );
     const blob = new Blob([lineas.join('\n')], {
       type: 'text/csv;charset=utf-8;',
     });
@@ -255,4 +251,4 @@
     a.click();
     URL.revokeObjectURL(url);
   }
-})();
+});
