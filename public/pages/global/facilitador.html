@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- estilos globales (desde /public) -->
-  <link rel="stylesheet" href="../../styles.css" />
-  <link rel="stylesheet" href="../../styles/facilitador-global.css" />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles/facilitador-global.css" />
 </head>
 <body>
   <main>
@@ -22,6 +22,7 @@
           <label>Opción 1</label>
           <input type="text" placeholder="Escribe la opción 1" />
           <button type="button" class="button pv-agregar-opcion">+</button>
+          <!-- el JS clonará más inputs aquí -->
         </div>
 
         <div class="pv-editor-acciones">
@@ -53,7 +54,7 @@
             </tr>
           </thead>
           <tbody>
-            <!-- el JS llenará esto con data/respuestas-global.json -->
+            <!-- el JS llenará esto con /data/respuestas-global.json o desde la función -->
           </tbody>
         </table>
       </div>
@@ -63,13 +64,13 @@
   </main>
 
   <!-- scripts locales comunes (desde /public/scripts) -->
-  <script src="../../scripts/inyectar-layout.js" defer></script>
-  <script src="../../scripts/utils/auth.js" defer></script>
+  <script src="/scripts/inyectar-layout.js" defer></script>
+  <script src="/scripts/utils/auth.js" defer></script>
 
-  <!-- d3 externo -->
+  <!-- d3 externo (antes del script que lo pueda usar) -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
 
-  <!-- script de esta página -->
-  <script src="../../scripts/facilitador-global.js"></script>
+  <!-- script específico de esta página -->
+  <script src="/scripts/facilitador-global.js"></script>
 </body>
 </html>
