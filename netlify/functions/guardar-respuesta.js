@@ -5,39 +5,34 @@ exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
-      body: 'Method Not Allowed',
+      body: 'Method Not Allowed'
     };
   }
 
   try {
-    const body = JSON.parse(event.body || '{}'); // { nombre, prioridades: [...] }
+    const body = JSON.parse(event.body || '{}');
+    const { nombre, prioridades } = body;
 
     const store = getStore('preferential-voting');
+    const data = (await store.getJSON('respuestas-global.json')) || {};
+    const respuestas = Array.isArray(data.respuestas) ? data.respuestas : [];
 
-    // leemos lo que ya hay
-    const existentes = (await store.getJSON('respuestas-global.json')) || [];
-
-    // metemos la nueva al final
-    existentes.push({
-      nombre: body.nombre || 'Sin nombre',
-      prioridades: Array.isArray(body.prioridades) ? body.prioridades : [],
-      ts: Date.now(),
+    respuestas.push({
+      nombre: nombre || '(sin nombre)',
+      prioridades: Array.isArray(prioridades) ? prioridades : []
     });
 
-    // guardamos todo
-    await store.setJSON('respuestas-global.json', existentes);
+    await store.setJSON('respuestas-global.json', { respuestas });
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ok: true }),
+      body: JSON.stringify({ ok: true })
     };
   } catch (err) {
     console.error('Error al guardar respuesta:', err);
     return {
       statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'Error al guardar respuesta' }),
+      body: 'Error al guardar respuesta'
     };
   }
 };

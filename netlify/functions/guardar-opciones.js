@@ -2,34 +2,33 @@
 const { getStore } = require('@netlify/blobs');
 
 exports.handler = async (event) => {
-  // solo POST
+  // 👉 si no es POST, 405 (esto es lo que ves en el navegador)
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
-      body: 'Method Not Allowed',
+      body: 'Method Not Allowed'
     };
   }
 
   try {
     const body = JSON.parse(event.body || '{}');
-
-    // el frontend ya manda { opciones: [...] }
+    // tu front manda { opciones: [...] }
     const opciones = Array.isArray(body.opciones) ? body.opciones : [];
 
     const store = getStore('preferential-voting');
-    await store.setJSON('opciones-global.json', opciones);
+
+    // guardamos SIEMPRE como { opciones: [...] }
+    await store.setJSON('opciones-global.json', { opciones });
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ok: true }),
+      body: JSON.stringify({ ok: true })
     };
   } catch (err) {
     console.error('Error al guardar opciones:', err);
     return {
       statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'Error al guardar opciones' }),
+      body: 'Error al guardar opciones'
     };
   }
 };

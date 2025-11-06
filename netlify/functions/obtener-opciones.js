@@ -4,21 +4,22 @@ const { getStore } = require('@netlify/blobs');
 exports.handler = async () => {
   try {
     const store = getStore('preferential-voting');
-
-    // lee el archivo como JSON; si no existe, regresa []
-    const opciones = (await store.getJSON('opciones-global.json')) || [];
+    // guardamos siempre en la misma clave
+    const data = (await store.getJSON('opciones-global.json')) || {};
+    const opciones = Array.isArray(data.opciones) ? data.opciones : [];
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(opciones),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     };
   } catch (err) {
     console.error('Error al leer opciones:', err);
     return {
       statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ error: 'Error al leer opciones' }),
+      body: 'Error al leer opciones'
     };
   }
 };
