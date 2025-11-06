@@ -1,13 +1,24 @@
 // scripts/inyectar-layout.js
 // ========================================
-// Inyectar Layout Global (Header, Banner, Footer)
+// Inyectar Layout Global (Header, Banner, Footer) ajustado para /public
 // ========================================
 (async function inyectarLayout() {
   try {
-    // Calcular la ruta base en función de la profundidad actual del path
+    // Partes del path actual, sin los vacíos
     const pathParts = window.location.pathname.split("/").filter(Boolean);
-    const depth = pathParts.length;
-    const basePath = depth > 1 ? "../".repeat(depth - 1) : "";
+
+    // Buscamos en qué posición del path está "public"
+    const publicIndex = pathParts.indexOf("public");
+
+    // Si encontramos "public", calculamos cuántos niveles hay DESPUÉS de public
+    // Ej:
+    // /public/index.html                    -> parts = ["public","index.html"]           -> nivelesDespues = 1 -> basePath = "" 
+    // /public/pages/global/encuesta.html    -> parts = ["public","pages","global","..."] -> nivelesDespues = 3 -> basePath = "../".repeat(3-1) = "../.."
+    let basePath = "";
+    if (publicIndex !== -1) {
+      const nivelesDespues = pathParts.length - (publicIndex + 1);
+      basePath = nivelesDespues > 1 ? "../".repeat(nivelesDespues - 1) : "";
+    }
 
     // Inyectar Header
     const headerHtml = await fetch(`${basePath}componentes/header.html`).then(res => res.text());

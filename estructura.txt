@@ -1,13 +1,13 @@
 .gdignore
 .gitignore
-code.js
 estructura.bat
 estructura.txt
-index.html
 LICENSE
+netlify.toml
+package-lock.json
+package.json
 README.md
 README_COLABORADORES.md
-styles.css
 
 ================================
  .vscode
@@ -16,20 +16,6 @@ Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
 D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\.VSCODE
     settings.json
-    
-No existe ninguna subcarpeta 
-
-
-================================
- componentes
-================================
-Listado de rutas de carpetas
-El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\COMPONENTES
-    banner.html
-    footer.html
-    header.html
-    layout-simple.html
     
 No existe ninguna subcarpeta 
 
@@ -49,75 +35,72 @@ No existe ninguna subcarpeta
 
 
 ================================
- img
+ netlify
 ================================
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\IMG
-    texture-r-2.png
-    texture-r-2.svg
-    
-No existe ninguna subcarpeta 
-
+D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\NETLIFY
++---functions
 
 ================================
- pages
+ public
 ================================
 Listado de rutas de carpetas
 El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\PAGES
-¦   Iniciar-sesion.html
-¦   
-+---educacion
-¦       encuesta.html
-¦       facilitador.html
-¦       resultados.html
-¦       
-+---empleos
-¦       encuesta.html
-¦       facilitador.html
-¦       resultados.html
-¦       
-+---global
-¦       encuesta.html
-¦       facilitador.html
-¦       resultados.html
-¦       
-+---liderazgo
-¦       encuesta.html
-¦       facilitador.html
-¦       resultados.html
-¦       
-+---prestacion-servicios
-        encuesta.html
-        facilitador.html
-        resultados.html
-        
-
-================================
- scripts
-================================
-Listado de rutas de carpetas
-El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\SCRIPTS
-¦   encuesta-global.js
-¦   facilitador-global.js
-¦   inyectar-layout.js
+D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\PUBLIC
+¦   code.js
+¦   index.html
+¦   styles.css
 ¦   
 +---componentes
-+---utils
-        auth.js
+¦       banner.html
+¦       footer.html
+¦       header.html
+¦       layout-simple.html
+¦       
++---img
+¦       texture-r-2.png
+¦       texture-r-2.svg
+¦       
++---pages
+¦   ¦   Iniciar-sesion.html
+¦   ¦   
+¦   +---educacion
+¦   ¦       encuesta.html
+¦   ¦       facilitador.html
+¦   ¦       resultados.html
+¦   ¦       
+¦   +---empleos
+¦   ¦       encuesta.html
+¦   ¦       facilitador.html
+¦   ¦       resultados.html
+¦   ¦       
+¦   +---global
+¦   ¦       encuesta.html
+¦   ¦       facilitador.html
+¦   ¦       resultados.html
+¦   ¦       
+¦   +---liderazgo
+¦   ¦       encuesta.html
+¦   ¦       facilitador.html
+¦   ¦       resultados.html
+¦   ¦       
+¦   +---prestacion-servicios
+¦           encuesta.html
+¦           facilitador.html
+¦           resultados.html
+¦           
++---scripts
+¦   ¦   encuesta-global.js
+¦   ¦   facilitador-global.js
+¦   ¦   inyectar-layout.js
+¦   ¦   
+¦   +---componentes
+¦   +---utils
+¦           auth.js
+¦           
++---styles
+        encuesta-global.css
+        facilitador-global.css
+        index.css
         
-
-================================
- styles
-================================
-Listado de rutas de carpetas
-El número de serie del volumen es 6076-4BBE
-D:\USERS\JUAN.DELACRUZ\DOCUMENTS\PROYECTOS\PREFERENTIAL-VOTING\STYLES
-    encuesta-global.css
-    facilitador-global.css
-    index.css
-    
-No existe ninguna subcarpeta 
-
