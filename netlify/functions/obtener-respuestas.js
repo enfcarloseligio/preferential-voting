@@ -15,7 +15,8 @@ exports.handler = async () => {
     console.error('Error al leer respuestas:', err);
     return {
       statusCode: 500,
-      body: 'Error al leer respuestas',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Error al leer respuestas' }),
     };
   }
 };

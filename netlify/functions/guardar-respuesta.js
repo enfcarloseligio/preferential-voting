@@ -10,29 +10,22 @@ exports.handler = async (event) => {
   }
 
   try {
+    const body = JSON.parse(event.body || '{}'); // { nombre, prioridades: [...] }
+
     const store = getStore('preferential-voting');
 
-    let nueva = {};
-    if (event.body) {
-      try {
-        nueva = JSON.parse(event.body);
-      } catch (e) {
-        nueva = {};
-      }
-    }
-
     // leemos lo que ya hay
-    const actuales = (await store.getJSON('respuestas-global.json')) || [];
+    const existentes = (await store.getJSON('respuestas-global.json')) || [];
 
     // metemos la nueva al final
-    actuales.push({
-      nombre: nueva.nombre || '(sin nombre)',
-      prioridades: Array.isArray(nueva.prioridades) ? nueva.prioridades : [],
+    existentes.push({
+      nombre: body.nombre || 'Sin nombre',
+      prioridades: Array.isArray(body.prioridades) ? body.prioridades : [],
       ts: Date.now(),
     });
 
-    // guardamos
-    await store.setJSON('respuestas-global.json', actuales);
+    // guardamos todo
+    await store.setJSON('respuestas-global.json', existentes);
 
     return {
       statusCode: 200,
@@ -43,7 +36,8 @@ exports.handler = async (event) => {
     console.error('Error al guardar respuesta:', err);
     return {
       statusCode: 500,
-      body: 'Error al guardar respuesta',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Error al guardar respuesta' }),
     };
   }
 };
