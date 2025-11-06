@@ -1,13 +1,13 @@
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const boton = document.getElementById('pv-limpiar-opciones');
-    if (!boton) return;
+document.addEventListener('DOMContentLoaded', () => {
+  const boton = document.getElementById('pv-limpiar-opciones');
+  if (!boton) {
+    console.log('No encontré el botón pv-limpiar-opciones 😢');
+    return;
+  }
 
-    console.log('JS de prueba ejecutado ✅');
+  console.log('JS de prueba ejecutado ✅');
 
-    // Alterna opacidad para simular parpadeo
-    setInterval(() => {
-      boton.style.opacity = boton.style.opacity === '0.4' ? '1' : '0.4';
-    }, 500);
-  });
-</script>
+  setInterval(() => {
+    boton.style.opacity = boton.style.opacity === '0.4' ? '1' : '0.4';
+  }, 500);
+});
