@@ -1,4 +1,12 @@
+// netlify/functions/guardar-respuesta.js
 const { getStore } = require('@netlify/blobs');
+
+function makeStore() {
+  const siteID = process.env.NETLIFY_SITE_ID;
+  const token = process.env.NETLIFY_BLOBS_TOKEN;
+  const name = 'preferential-voting';
+  return getStore({ name, siteID, token });
+}
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -6,28 +14,23 @@ exports.handler = async (event) => {
   }
 
   try {
-    const siteID = process.env.NETLIFY_SITE_ID;
-    const token = process.env.NETLIFY_AUTH_TOKEN;
+    const nueva = JSON.parse(event.body || '{}');
 
-    const store = getStore(
-      {
-        name: 'preferential-voting',
-        siteID,
-        token,
-      },
-      'preferential-voting'
-    );
+    const store = makeStore();
+    const actuales = (await store.getJSON('respuestas-global.json')) || [];
+    actuales.push(nueva);
 
-    const body = JSON.parse(event.body || '{}');
+    await store.setJSON('respuestas-global.json', actuales);
 
-    const todas = (await store.getJSON('respuestas-global.json')) || [];
-    todas.push(body);
-
-    await store.setJSON('respuestas-global.json', todas);
-
-    return { statusCode: 200, body: 'ok' };
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ ok: true }),
+    };
   } catch (err) {
     console.error('Error al guardar respuesta:', err);
-    return { statusCode: 500, body: 'Error al guardar respuesta' };
+    return {
+      statusCode: 500,
+      body: 'Error al guardar respuesta',
+    };
   }
 };

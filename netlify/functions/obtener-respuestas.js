@@ -1,25 +1,21 @@
+// netlify/functions/obtener-respuestas.js
 const { getStore } = require('@netlify/blobs');
+
+function makeStore() {
+  const siteID = process.env.NETLIFY_SITE_ID;
+  const token = process.env.NETLIFY_BLOBS_TOKEN;
+  const name = 'preferential-voting';
+  return getStore({ name, siteID, token });
+}
 
 exports.handler = async () => {
   try {
-    const siteID = process.env.NETLIFY_SITE_ID;
-    const token = process.env.NETLIFY_AUTH_TOKEN;
-
-    const store = getStore(
-      {
-        name: 'preferential-voting',
-        siteID,
-        token,
-      },
-      'preferential-voting'
-    );
-
-    const respuestas = (await store.getJSON('respuestas-global.json')) || [];
-
+    const store = makeStore();
+    const data = (await store.getJSON('respuestas-global.json')) || [];
     return {
       statusCode: 200,
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(respuestas),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
     };
   } catch (err) {
     console.error('Error al leer respuestas:', err);
